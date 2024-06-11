@@ -1,0 +1,20 @@
+.mytable {
+    color: red;
+}
+
+.displaynone {
+    display: none;
+}
+
+.mybtn {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.complaint-red {
+    background-color: #fd8992 !important;
+}
+
+a:visited {
+    color: #a81226 !important;
+  }

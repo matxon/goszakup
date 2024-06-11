@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "goszakup",
+    "version": "1.0",
+
+    "description": "For webportal goszakup",
+
+    "icons": {
+        "48": "icons/goszakup.png"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["https://v3bl.goszakup.gov.kz/ru/contract/supplier*", "https://v3bl.goszakup.gov.kz/ru/egzcontract/supcontract/units/*","https://v3bl.goszakup.gov.kz/ru/egzcontract/supcontract/contract/*","https://v3bl.goszakup.gov.kz/ru/announce/index/*"],
+            "js": [ "jquery-3.7.1.min.js", "datatables.min.js", "content.js"],
+            "css": ["datatables.min.css", "styles.css"]
+        }
+    ]
+}
