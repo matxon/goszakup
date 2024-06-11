@@ -1,20 +1,26 @@
-$('#counteragents').on('input', (event) => {
-    var s = event.target.value;
+$('#counteragents').on('input', (e) => {
+    var s = e.target.value;
+    var result = $('div.result-box:first');
+    var tbody = $('div.result-box:first tbody');
 
     if (s.length > 2) {
         $.post('/counteragent', {"name": s }, 
             function(data) {
+                console.log(data);
                 // data: объекттерден тұратын массив
-                s = "<ul>";
+                s = "";
             
                 data.forEach(element => {
-                    s = s + "<li>" + element.Short_name + "</li>";
+                    s = s + "<tr><td>" + element.id + '</td><td>' + element.Short_name + "</td></tr>";
                 });
 
-                s = s + "</ul>"
+                //s = s + "</ul>"
 
-                $('div.result-box:first').removeClass('d-none').html(s);
+                result.removeClass('d-none')
+                tbody.html(s);
             }
           );
+    } else {
+        result.addClass('d-none');
     }
 }) 

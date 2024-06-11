@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.post('/counteragent', (req, res) => {
     console.log(req.body);
-    sql = sql = "SELECT short_name FROM counteragents WHERE short_name like ?";
+    sql = sql = "SELECT id, short_name FROM counteragents WHERE short_name like ?";
     db.all(sql, ['%' + req.body.name + '%'], (err, rows) => {
         if (err) return console.error(err.message);
         res.send(rows);

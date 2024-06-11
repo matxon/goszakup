@@ -17,16 +17,17 @@ select.astable:focus, input.astable:focus {
 .result-box {
     position: absolute;
     width: 70%;
+    font-size: 0.8rem;
     /* width: -webkit-fill-available; */
     
     /* border: 1px solid red; */
 }
 
 .result-box ul {
-    border: 1px solid green;
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
     padding: 15px 10px ;
-    background-color: #dbfcce;
+    background-color: #ffffff;
 }
 
 .result-box ul li {
@@ -34,12 +35,12 @@ select.astable:focus, input.astable:focus {
     border-radius: 5px;
     padding: 5px 10px;
     color: black;
-    font-size: 0.8rem;
+    
     cursor: pointer;
 }
 
 .result-box ul li:hover {
-    background-color: cadetblue;
+    background-color: rgb(204, 253, 255);
 }
 
 .result-box>.table {
