@@ -3,9 +3,18 @@ $('#counteragents').on('input', (event) => {
 
     if (s.length > 2) {
         $.post('/counteragent', {"name": s }, 
-            function(res) {
-                console.log(res);
+            function(data) {
+                // data: объекттерден тұратын массив
+                s = "<ul>";
+            
+                data.forEach(element => {
+                    s = s + "<li>" + element.Short_name + "</li>";
+                });
+
+                s = s + "</ul>"
+
+                $('div.result-box:first').removeClass('d-none').html(s);
             }
           );
     }
-})
+}) 

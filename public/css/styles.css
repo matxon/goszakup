@@ -22,7 +22,7 @@ select.astable:focus, input.astable:focus {
     /* border: 1px solid red; */
 }
 
-/* .result-box ul {
+.result-box ul {
     border: 1px solid green;
     border-radius: 5px;
     padding: 15px 10px ;
@@ -40,7 +40,7 @@ select.astable:focus, input.astable:focus {
 
 .result-box ul li:hover {
     background-color: cadetblue;
-} */
+}
 
 .result-box>.table {
     border: 2px solid black;
