@@ -1,0 +1,53 @@
+.form-control {
+    font-size: 0.9rem;
+}
+
+.astable {
+    border-radius: 0px;
+}
+
+select.astable:focus, input.astable:focus {
+    box-shadow: none;
+}
+
+.result-box.astable {
+    width: auto;
+}
+
+.result-box {
+    position: absolute;
+    width: 70%;
+    /* width: -webkit-fill-available; */
+    
+    /* border: 1px solid red; */
+}
+
+/* .result-box ul {
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 15px 10px ;
+    background-color: #dbfcce;
+}
+
+.result-box ul li {
+    list-style: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: black;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.result-box ul li:hover {
+    background-color: cadetblue;
+} */
+
+.result-box>.table {
+    border: 2px solid black;
+}
+
+.table-hover>tbody>tr:hover {
+    background-color: cadetblue;
+}
+
+
