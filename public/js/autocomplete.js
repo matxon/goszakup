@@ -11,7 +11,8 @@ $('#counteragents').on('input', (e) => {
                 s = "";
             
                 data.forEach(element => {
-                    s = s + "<tr><td>" + element.id + '</td><td>' + element.Short_name + "</td></tr>";
+                    // s = s + "<tr><td>" + element.id + '</td><td>' + element.Short_name + "</td></tr>";
+                    s = s + "<tr><td>" + element.BIN + '</td><td>' + element.Name + "</td></tr>";
                 });
 
                 //s = s + "</ul>"
