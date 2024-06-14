@@ -89,7 +89,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
      
         // Toggle the visibility
         column.visible(!column.visible());
-        $(this).toggleClass('btn-primary');
+        // $(this).toggleClass('btn-primary');
     });
 
     
@@ -119,17 +119,42 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
     });
 }
 
+// Страница просмотра договора
 if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontract/supcontract/contract/")) {
     
-    $('<input type="checkbox" id="checkbox_contract" checked /><span> Скрыть содержание договора</span>').prependTo($('.tab-content>.tab-pane:first'));
+    $('<div class="col-md-9"><button id="copy_contract" class="btn btn-primary margin-top-15" type="button">Скопировать данные Заказчика</button></div>').prependTo($('.tab-content>.tab-pane:first'));
+    $('<div class="col-md-3"><input class=" margin-top-15" type="checkbox" id="checkbox_contract" checked /><span> Скрыть содержание договора </span></div>').prependTo($('.tab-content>.tab-pane:first'));
 
     $('#econtract_data').toggleClass('displaynone');
 
     $('#checkbox_contract').click(function() {
         $('#econtract_data').toggleClass('displaynone');
     });
+
+    $('#copy_contract').on('click', copy_contract);
+        
+        
+    async function copy_contract() {
+
+        data = $.map($('#elements_ru').find('td[width]:first'), function( obj, ind ) { return obj.innerText }).toString().trim().split('\n').filter( function(e,i) { return (i == 1 || i==2 || i==3 || i==7 || i==8) });
+
+        text = 
+            data[2].trim().substring(4) + '\t' + 
+            data[0].trim() + '\t' + 
+            data[1].trim() + '\t' + 
+            data[3].trim().substring(6) + '\t' + 
+            data[4].trim();
+
+        try {
+            await navigator.clipboard.writeText(text);
+            alert('Данные скопированы')
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 }
 
+// Страница просмотра объявления
 if ($(location).attr('href').includes('https://v3bl.goszakup.gov.kz/ru/announce/index/')) {
 
     array = $('.table tr').text().split('\n');
@@ -159,7 +184,7 @@ if ($(location).attr('href').includes('https://v3bl.goszakup.gov.kz/ru/announce/
     var text = text + array[index+1].trim();
 
     
-    $('.table:first').on('click', cp(text));
+    $('.table').on('click', cp(text));
 
     async function cp(text) {
 
@@ -169,7 +194,7 @@ if ($(location).attr('href').includes('https://v3bl.goszakup.gov.kz/ru/announce/
             console.log(err.message);
         }
 
-        history.back();
+        // history.back();
     };
 
 }

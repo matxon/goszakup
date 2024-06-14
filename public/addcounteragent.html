@@ -15,13 +15,16 @@
             <div class="row gx-1 mb-3">
                 <label for="" class="form-label col-form-label col col-sm-2 text-start">БИН / ИИН</label>
                 <div class="col col-sm-3">
-                    <input id="id" type="text" class="form-control">
+                    <input id="bin" type="text" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-primary" id="paste_data" type="button">Вставить данные Контрагента</button>
                 </div>
             </div>
             <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2 text-start">Поставщик</label>
+                <label for="" class="form-label col-form-label col-2 text-start">Контрагент</label>
                 <div class="col-10">
-                    <input id="supplier" type="text" class="form-control">
+                    <input id="counteragent" type="text" class="form-control">
                     <!-- <div class="result-box d-none">
                         <ul>
                             <li>Коммунальное государственное учреждение "Актогайская средняя школа" государственного учреждения отдела образования Махамбетского района Управления образования Атырауской области"</li>
@@ -35,22 +38,28 @@
             <div class="row gx-1 mb-3">
                 <label for="" class="form-label col-form-label col-2 col-sm-2 text-start">Адрес</label>
                 <div class="col-10">
-                    <input type="text" class="form-control" value="Казахстан, 234630100, Атырауская область, Курмангазинский район, с.Құрманғазы, ул. ХАЛИТ ИСПУЛАЕВ, д. 14, оф.">
+                    <input type="text" class="form-control" id="address">
                 </div>
             </div>
-            <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2">Телефон</label>
-                <div class="col col-md-6 col-sm-10">
-                    <input type="text" class="form-control" value="8-7122-25-65-95">
-                </div>
-            </div>
-            <div class="row gx-1 mb-3">
+            <!-- <div class="row gx-1 mb-3">
                 <label for="" class="form-label col-form-label col-2">email</label>
                 <div class="col col-md-6 col-sm-10">
                     <input type="text" class="form-control" value="zhylyoi_maslihat2014@mail.ru">
                 </div>
+            </div> -->
+            <div class="row gx-1 mb-3">
+                <label for="" class="form-label col-form-label col-2">Телефон</label>
+                <div class="col col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="tel">
+                </div>
             </div>
-           
+            <div class="row gx-1 mb-3">
+                <label for="" class="form-label col-form-label col-2">Контактное лицо</label>
+                <div class="col col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="contact">
+                </div>
+            </div>
+                    
             <div class="row m-3 text-end">
                 <div class="offset-md-7 col-md-5 offset-sm-6 col-sm-6">
                     <a href="" class="btn btn-primary">Сохранить</a>
@@ -64,8 +73,20 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-    $('#id').val('780810300351');
-    $('#supplier').val('Коммунальное государственное учреждение "Актогайская средняя школа" государственного учреждения отдела образования Махамбетского района Управления образования Атырауской области"');
+    $(document).ready( function() {
+        $('#paste_data').on('click', function() {
+            navigator.clipboard
+                .readText()
+                .then( function(text) {
+                    arr = text.split('\t');
+                    $('#bin').val(arr[0]);
+                    $('#counteragent').val(arr[1]);
+                    $('#address').val(arr[2]);
+                    $('#tel').val(arr[3]);
+                    $('#contact').val(arr[4]);
+                });
+        });
+    });
 </script>
 </body>
 </html>

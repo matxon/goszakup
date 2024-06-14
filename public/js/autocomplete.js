@@ -25,3 +25,15 @@ $('#counteragents').on('input', (e) => {
         result.addClass('d-none');
     }
 }) 
+
+$('.result-box>table').on('click', 'tr', function() {
+    console.log($(this).find('td')[0].innerText);
+    console.log($(this).find('td')[1].innerText);
+
+    // $('#counteragents_bin').val($(this).find('td')[0].innerText)
+    $('#counteragents').val($(this).find('td')[1].innerText)
+    $(this).find('td').each(function(cell){
+		// console.log(' ячейка ' + cell + ', значение: ' + $(this).text());
+	});
+    $('.result-box.astable:first').addClass('d-none');
+})

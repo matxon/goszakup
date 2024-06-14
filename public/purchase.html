@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body style="background-color: #000000dc; color: white;">
+<body style="background-color: #0e0d0ddc; color: white;">
 <div class="container">
     <h1 class="text-center">Поступление товара</h1>
     <form action="">
@@ -28,33 +28,31 @@
                     <input type="number" class="form-control text-end" value="10800" disabled>
                 </div>
             </div>
+            <!-- <pre>
             TODO: 
             1. іздеген кезде БИН сосын Поставщиктің аты, осы екеінің ішінен ізделу керек
             2. Таңдаған кезде аты мен коды таңдалады, сосын select-тің value=id, option = name жазылады
             3. мышкамен 2 рет басқанда Поставщикті енгізетін форма ашылуы керек
+            </pre> -->
             <div class="row gx-1 mb-3">
                 <label for="" class="form-label col-form-label col-2 text-start">Поставщик</label>
                 <div class="col-10">
-                    <select id="supplier9" class="form-control d-none">
-                        <option selected value="980810522454">Коммунальное государственное учреждение "Актогайская средняя школа" государственного учреждения отдела образования Махамбетского района Управления образования Атырауской области"</option>
-                    </select>
-                    <input type="text" name="counteragent" id="counteragents" class="form-control" value="">
-                    <!-- <div class="result-box d-none">
-                        <ul>
-                            <li>Коммунальное государственное учреждение "Актогайская средняя школа" государственного учреждения отдела образования Махамбетского района Управления образования Атырауской области"</li>
-                            <li>Республиканское государственное учреждение «Региональное командование «Батыс» -воинская часть 5515» Национальной гвардии Республики Казахстан»</li>
-                            <li>КГУ «Средняя школа имени Ахмет Байтұрсынұлы» отдела образования Махамбетского района Управления образования Атырауской области»</li>
-                            <li>ГККП "Елтай-Мадениет" аппарата акима Елтайского сельского округа"</li>
-                        </ul>
-                    </div> -->
+                    <!-- <select id="supplier9" class="form-control d-none">
+                        <option selected value=""></option>
+                    </select> -->
+                    <div class="input-group">
+                        <input type="text" name="counteragent" id="counteragents" class="form-control" value="" autocomplete="false">
+                        <button class="btn btn-secondary" type="button"  id="addcounteragent">+</button>
+                    </div>
+                    
                     <div class="result-box astable d-none">
                         <table class="table table-hover ">
-                            <thead>
+                            <!-- <thead>
                                 <tr class="text-center">
                                     <th>Код</th>
                                     <th>Контрагент</th>
                                 </tr>
-                            </thead>
+                            </thead> -->
                             <tbody>
                                 
                             </tbody>
@@ -62,13 +60,13 @@
                     </div>
                 </div>
             </div>
-            <pre>
-            // TODO:
-            // input-тардан жасаған дұрыс болмайды, таблицаға ауыстырып
-            // сосын енгізетін форма арқылы енгізген дұрыс болады-ау деймін
-            // Формада таңдайтын checkbox салып қойсам, сосын сол таңдалғандардың бәрін
-            // осы жерге бәрін бір-ақ енгізу қажет
-            </pre>
+            <!-- <pre>
+            TODO:    
+            input-тардан жасаған дұрыс болмайды, таблицаға ауыстырып
+            сосын енгізетін форма арқылы енгізген дұрыс болады-ау деймін
+            Формада таңдайтын checkbox салып қойсам, сосын сол таңдалғандардың бәрін
+            осы жерге бәрін бір-ақ енгізу қажет 
+            </pre> -->
             <div class="border border-secondary border-3">
                 <div class="row gx-0">
                     <div class="col-1"><input class="astable form-control form-control-sm" type="text" name="" id="" value="12001"></div>
@@ -145,7 +143,7 @@
                     <div class="col-2"><input class="astable form-control form-control-sm text-end" type="number" name="" id="" value="1200" disabled></div>
                 </div>
 
-                <div class="row gx-0">
+                <!-- <div class="row gx-0">
                     <div class="col-1"><input class="astable form-control form-control-sm" type="text" name="" id="" value="12001"></div>
                     <div class="col-5"><input class="astable form-control form-control-sm" type="text" name="" id="" value="Порошок Комет, пакетированная, 350гр"></div>
                     <div class="col-1"><input class="astable form-control form-control-sm text-center" type="text" name="" id="" value="шт"></div>
@@ -271,7 +269,7 @@
                     <div class="col-1"><input class="astable form-control form-control-sm text-end" type="number" name="" id="" value="2"></div>
                     <div class="col-2"><input class="astable form-control form-control-sm text-end" type="number" name="" id="" value="1200"></div>
                     <div class="col-2"><input class="astable form-control form-control-sm text-end" type="number" name="" id="" value="2400" disabled></div>
-                </div>
+                </div> -->
             </div>
             <div class="row m-3 text-end">
                 <div class="offset-md-7 col-md-5 offset-sm-6 col-sm-6">
@@ -283,12 +281,122 @@
     </form>
 </div>
 
+<div class="modal fade" id="addCounteragentModal" tabindex="-1" aria-labelledby="exampleModalXlLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalXlLabel">Добавление контрагента</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addCounter" method="post">
+                    <fieldset>
+                        <div class="row gx-1 mb-3">
+                            <label for="" class="form-label col-form-label col col-sm-2 text-start">БИН / ИИН</label>
+                            <div class="col col-sm-3">
+                                <input id="bin" type="text" class="form-control" name="bin">
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary" id="paste_data" type="button">Вставить данные Контрагента</button>
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-3">
+                            <label for="" class="form-label col-form-label col-2 text-start">Контрагент</label>
+                            <div class="col-10">
+                                <input id="counteragent" type="text" class="form-control" name="counter">
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-3">
+                            <label for="" class="form-label col-form-label col-2 col-sm-2 text-start">Адрес</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" id="address" name="address">
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-3">
+                            <label for="" class="form-label col-form-label col-2">Телефон</label>
+                            <div class="col col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="tel" name="tel">
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-3">
+                            <label for="" class="form-label col-form-label col-2">Контактное лицо</label>
+                            <div class="col col-md-6 col-sm-10">
+                                <input type="text" class="form-control" id="contact" name="contact">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="save">Сохранить изменения</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="js/autocomplete.js"></script>
 <script>
-    $('#id').val('0123456789');
-    $('#supplier').val('Коммунальное государственное учреждение "Актогайская средняя школа" государственного учреждения отдела образования Махамбетского района Управления образования Атырауской области"');
+    $(document).ready( function() {
+        $('#paste_data').on('click', function() {
+            navigator.clipboard
+                .readText()
+                .then( function(text) {
+                    arr = text.split('\t');
+                    $('#bin').val(arr[0]);
+                    $('#counteragent').val(arr[1]);
+                    $('#address').val(arr[2]);
+                    $('#tel').val(arr[3]);
+                    $('#contact').val(arr[4]);
+                });
+        });
+
+
+        myModal = new bootstrap.Modal('#addCounteragentModal');
+
+        $('#addcounteragent').on('click', function() {
+            myModal.show();
+        });
+
+        $('#addCounter').on('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                bin: $('#bin').val(),
+                counteragent: $('#counteragent').val(),
+                address: $('#address').val(),
+                tel: $('#tel').val(),
+                contact: $('#contact').val(),
+            }
+
+            $.ajax({
+                url: '/saveCounter',
+                type: 'post',
+                data: data,
+                success: function(res) {
+                    console.log(res);
+                    //myModal.dispose();
+                    myModal.hide();
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            })
+        });
+
+        $('#save').on('click', function() {
+            form = $('#addCounter').trigger('submit', function() {
+                 
+            })
+
+        })
+    });
+
+    
+
+   
 </script>
 </body>
 </html>

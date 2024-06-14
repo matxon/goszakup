@@ -22,11 +22,26 @@ app.get('/', (req, res) => {
 
 app.post('/counteragent', (req, res) => {
     console.log(req.body);
-    sql = sql = "SELECT id, bin, short_name, name FROM counteragents WHERE short_name like ?";
+    sql = "SELECT id, bin, name FROM counteragents WHERE concat(bin,name) like ?";
     db.all(sql, ['%' + req.body.name + '%'], (err, rows) => {
         if (err) return console.error(err.message);
         res.send(rows);
     });
+});
+
+app.post('/saveCounter', (req, res) => {
+    data = req.body;
+    console.log(data);
+
+    sql = "INSERT INTO counteragents(BIN, Name, Address, Telephone, contact) VALUES (?, ?, ?, ?, ?)";
+    db.run( sql, [data.bin, data.counteragent, data.address, data.tel, data.contact], function(err) {
+        if (err) {
+            res.sendStatus(500)
+            //res.end(err);
+            return console.error(err.message);
+        } else res.send('Ok');
+    })
+    
 });
 
 app.listen(port, () => {
