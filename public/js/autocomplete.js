@@ -26,7 +26,12 @@ $('#counteragents').on('input', (e) => {
     }
 }) 
 
-$('.result-box>table').on('click', 'tr', function() {
+$('#counteragents').on('focus', function() {
+    // автовыделение текста
+    $(this).select();
+})
+
+$('.counter>table').on('click', 'tr', function() {
     console.log($(this).find('td')[0].innerText);
     console.log($(this).find('td')[1].innerText);
 

@@ -20,9 +20,18 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
+app.post('/products', (req, res) => {
+    console.log(req.body);
+    sql = "SELECT * FROM products WHERE concat(id,product_name) like ?";
+    db.all(sql, ['%' + req.body.str + '%'], (err, rows) => {
+        if (err) return console.error(err.message);
+        res.send(rows);
+    });
+});
+
 app.post('/counteragent', (req, res) => {
     console.log(req.body);
-    sql = "SELECT id, bin, name FROM counteragents WHERE concat(bin,name) like ?";
+    sql = "SELECT id, bin, name FROM counteragents WHERE concat(bin,name,address) like ?";
     db.all(sql, ['%' + req.body.name + '%'], (err, rows) => {
         if (err) return console.error(err.message);
         res.send(rows);
@@ -36,10 +45,16 @@ app.post('/saveCounter', (req, res) => {
     sql = "INSERT INTO counteragents(BIN, Name, Address, Telephone, contact) VALUES (?, ?, ?, ?, ?)";
     db.run( sql, [data.bin, data.counteragent, data.address, data.tel, data.contact], function(err) {
         if (err) {
+            // осы ошибканы браузерге жеткізе алмай отырмын
+            // 500 - сервердің ошибкасы
+            // сообщениені қалай жіберем
             res.sendStatus(500)
             //res.end(err);
             return console.error(err.message);
-        } else res.send('Ok');
+        } else {
+            res.send('Ok');
+        }
+
     })
     
 });
