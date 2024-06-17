@@ -38,6 +38,23 @@ app.post('/counteragent', (req, res) => {
     });
 });
 
+app.post('/saveProduct', (req, res) => {
+    data = req.body;
+    console.log(data);
+
+    sql = "INSERT INTO products(Product_name, Unit) VALUES (?, ?)";
+    db.run( sql, [data.name, data.unit], function(err) {
+        if (err) {
+            res.status(500).send(err.message);
+            console.error(err.message);
+        } else {
+            res.send('Ok');
+        }
+
+    })
+    
+});
+
 app.post('/saveCounter', (req, res) => {
     data = req.body;
     console.log(data);
@@ -45,12 +62,8 @@ app.post('/saveCounter', (req, res) => {
     sql = "INSERT INTO counteragents(BIN, Name, Address, Telephone, contact) VALUES (?, ?, ?, ?, ?)";
     db.run( sql, [data.bin, data.counteragent, data.address, data.tel, data.contact], function(err) {
         if (err) {
-            // осы ошибканы браузерге жеткізе алмай отырмын
-            // 500 - сервердің ошибкасы
-            // сообщениені қалай жіберем
-            res.sendStatus(500)
-            //res.end(err);
-            return console.error(err.message);
+            res.status(500).send(err.message);
+            console.error(err.message);
         } else {
             res.send('Ok');
         }
