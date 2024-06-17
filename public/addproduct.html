@@ -9,47 +9,35 @@
 </head>
 <body style="background-color: #000000dc; color: white;">
 <div class="container">
-    <h1 class="text-center">Добавление контрагента</h1>
+    <h1 class="text-center">Добавление товара</h1>
     <form action="">
         <fieldset>
             <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col col-sm-2 text-start">БИН / ИИН</label>
+                <label for="" class="form-label col-form-label col col-sm-2 text-start">Код</label>
                 <div class="col col-sm-3">
-                    <input id="bin" type="text" class="form-control">
+                    <input id="" type="text" class="form-control" disabled>
                 </div>
-                <div class="col-sm-3">
-                    <button class="btn btn-primary" id="paste_data" type="button">Вставить данные Контрагента</button>
+                
+            </div>
+            <div class="row gx-1 mb-3">
+                <label for="" class="form-label col-form-label col-2 text-start">Наименование</label>
+                <div class="col-10">
+                    <input id="" type="text" class="form-control">
+                    
                 </div>
             </div>
             <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2 text-start">Контрагент</label>
-                <div class="col-10">
-                    <input id="counteragent" type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2 col-sm-2 text-start">Адрес</label>
-                <div class="col-10">
+                <label for="" class="form-label col-form-label col-2 col-sm-2 text-start">Ед.измерения</label>
+                <div class="col-2">
                     <input type="text" class="form-control" id="address">
                 </div>
             </div>
-            <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2">Телефон</label>
-                <div class="col col-md-6 col-sm-10">
-                    <input type="text" class="form-control" id="tel">
-                </div>
-            </div>
-            <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2">Контактное лицо</label>
-                <div class="col col-md-6 col-sm-10">
-                    <input type="text" class="form-control" id="contact">
-                </div>
-            </div>
+            
                     
             <div class="row m-3 text-end">
                 <div class="offset-md-7 col-md-5 offset-sm-6 col-sm-6">
-                    <a href="" class="btn btn-primary">Сохранить</a>
-                    <a href="" class="btn btn-primary">Отменить</a>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-primary">Отменить</button>
                 </div>
             </div>
         </fieldset>

@@ -13,17 +13,17 @@
     <form action="">
         <fieldset>
             <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col col-sm-3 text-start">Номер покупки</label>
+                <label for="" class="form-label col-form-label col col-sm-2 text-start">Номер покупки</label>
                 <div class="col col-sm-3">
                     <input id="id" type="text" class="form-control" disabled>
                 </div>
             </div>
             <div class="row gx-1 mb-3">
-                <label for="" class="form-label col-form-label col-2 col-sm-3 text-start">Дата</label>
+                <label for="" class="form-label col-form-label col-2 col-sm-2 text-start">Дата</label>
                 <div class="col-4 col-sm-3">
-                    <input type="date" class="form-control">
+                    <input id="date" type="date" class="form-control">
                 </div>
-                <label for="" class="form-label col-form-label col-2 offset-sm-1 text-center">Сумма</label>
+                <label for="" class="form-label col-form-label col-2 offset-sm-2 text-center">Сумма</label>
                 <div class="col-4 col-sm-3">
                     <input type="number" class="form-control text-end" id="summ" disabled>
                 </div>
@@ -41,6 +41,7 @@
                         <option selected value=""></option>
                     </select> -->
                     <div class="input-group">
+                        <input type="text" id="id_counter" class="d-none">
                         <input type="text" name="counteragent" id="counteragents" class="form-control" value="" autocomplete="false">
                         <button class="btn btn-secondary" type="button"  id="addcounteragent">+</button>
                     </div>
@@ -83,9 +84,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input name="" class="astable form-control form-control-sm" type="text" id="" disabled></td>
+                            <td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled></td>
                             <td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td>
-                            <td><input name="" class="astable form-control form-control-sm text-center" type="text" id="" disabled></td>
+                            <td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id="" disabled></td>
                             <td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td>
                             <td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td>
                             <td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled></td>
@@ -98,8 +99,9 @@
             <!-- </div> -->
             <div class="row m-3 text-end">
                 <div class="offset-md-7 col-md-5 offset-sm-6 col-sm-6">
-                    <a href="" class="btn btn-primary">Сохранить</a>
-                    <a href="" class="btn btn-primary">Отменить</a>
+                    <button id="addproduct" type="button" class="btn btn-primary">Добавить товар</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-primary">Отменить</button>
                 </div>
             </div>
         </fieldset>
@@ -160,6 +162,44 @@
     </div>
 </div>
 
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="addProductModalLabel">Добавление товара</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addProduct" method="post">
+                    <fieldset>
+                        <div class="row gx-1 mb-3">
+                            <label for="id_product" class="form-label col-form-label col col-sm-2 text-start">Код</label>
+                            <div class="col col-sm-3">
+                                <input id="id_product" type="text" class="form-control" name="" disabled>
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-3">
+                            <label for="product" class="form-label col-form-label col-2 text-start">Наименование</label>
+                            <div class="col-10">
+                                <input id="product" type="text" class="form-control" name="">
+                            </div>
+                        </div>
+                        <div class="row gx-1 mb-3">
+                            <label for="unit" class="form-label col-form-label col-2 col-sm-2 text-start">Ед.измерения</label>
+                            <div class="col-2">
+                                <input type="text" class="form-control" id="unit" name="">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="save">Сохранить изменения</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- context table for choice -->
 <div class="result-box astable free d-none">
     <table class="table table-hover">
@@ -177,6 +217,8 @@
 <script>
     $(document).ready( function() {
 
+        // Госзакупкіден копировать етіп алынған
+        // мәліметтерді жылдам енгізу
         $('#paste_data').on('click', function() {
             navigator.clipboard
                 .readText()
@@ -191,13 +233,17 @@
                 });
         });
 
-
-        myModal = new bootstrap.Modal('#addCounteragentModal');
-
+        
+        // Модалды форма ашу
         $('#addcounteragent').on('click', function() {
+            // Контрагентті қосуға арналған модалды форма
+            myModal = new bootstrap.Modal('#addCounteragentModal');
             myModal.show();
         });
 
+        // Модалды формада жазылған мәліметтерді
+        // сервердегі базаға жазуға арналған
+        // функция, Button-ды басқанда шақырылады
         $('#addCounter').on('submit', function(event) {
             event.preventDefault();
             const data = {
@@ -223,14 +269,18 @@
             })
         });
 
+        // Базаға жазатын функцияны шақыру
         $('#save').on('click', function() {
-            form = $('#addCounter').trigger('submit', function() {
-                 
+            form = $('#addCounter').trigger('submit', function() {   
             })
 
         })
 
+        // тауарды енгізген кезде көрінетін контексті
+        // таблицаға reference
         ct_table = $('.result-box.astable.free:first');
+
+        // global айнымалысына жазып қойдым, қайта қарастыру керек болар
         window.current;
 
         $('#products').on('focus', 'input.astable', function() {
@@ -309,7 +359,7 @@
             $('#summ').val(summ());
         });
 
-        trow = '<tr><td><input name="" class="astable form-control form-control-sm" type="text" id="" disabled></td><td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td><td><input name="" class="astable form-control form-control-sm text-center" type="text" id=""disabled></td><td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id=""disabled></td><td name="plus" class="text-center">+</td><td name="minus" class="text-center">-</td></tr>';
+        trow = '<tr><td><input name="id_products" class="astable form-control form-control-sm" type="text" id="" disabled></td><td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td><td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id=""disabled></td><td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id=""disabled></td><td name="plus" class="text-center">+</td><td name="minus" class="text-center">-</td></tr>';
 
         $('#products').on('click', 'td[name="plus"]', function(e) {
             $(this).parent().after(trow);
@@ -331,6 +381,16 @@
 
             return s;
         }
+
+
+        // Жаңа тауарды серверге енгізу формасын ашу
+        // бірінші button-ға event жазамыз
+        $('#addproduct').on('click', function() {
+            // модалды форма ашамыз
+            myModal = new bootstrap.Modal('#addProductModal');
+            myModal.show();
+
+        })
 
     });
 
