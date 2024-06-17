@@ -398,8 +398,8 @@
             e.preventDefault();
             // мәліметтерді жинау
             data = {
-                name: $('#product').val(),
-                unit: $('#unit').val()
+                name: $('#product').val().trim() || null,
+                unit: $('#unit').val().trim() || null
             };
 
             $.ajax({

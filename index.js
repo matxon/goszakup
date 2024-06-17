@@ -43,7 +43,7 @@ app.post('/saveProduct', (req, res) => {
     console.log(data);
 
     sql = "INSERT INTO products(Product_name, Unit) VALUES (?, ?)";
-    db.run( sql, [data.name, data.unit], function(err) {
+    db.run( sql, [data.name || null, data.unit || null], function(err) {
         if (err) {
             res.status(500).send(err.message);
             console.error(err.message);

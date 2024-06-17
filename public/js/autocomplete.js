@@ -4,7 +4,7 @@ $('#counteragents').on('input', (e) => {
     var tbody = $('div.result-box:first tbody');
 
     if (s.length > 2) {
-        $.post('/counteragent', {"name": s }, 
+        $.post('/counteragent', {"name": s.trim() }, 
             function(data) {
                 console.log(data);
                 // data: объекттерден тұратын массив
