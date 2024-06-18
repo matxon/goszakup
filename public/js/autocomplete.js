@@ -32,9 +32,9 @@ $('#counteragent').on('focus', function() {
 })
 
 $('.counter>table').on('click', 'tr', function() {
-    console.log($(this).find('td')[0].innerText);
-    console.log($(this).find('td')[1].innerText);
-    console.log($(this).find('td')[2].innerText);
+    //console.log($(this).find('td')[0].innerText);
+    //console.log($(this).find('td')[1].innerText);
+    //console.log($(this).find('td')[2].innerText);
 
     // $('#counteragents_bin').val($(this).find('td')[0].innerText)
     $('#id_counteragent').val($(this).find('td')[0].innerText)
