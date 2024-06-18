@@ -10,7 +10,7 @@
 <body style="background-color: #414141; color: white;">
 <div class="container">
     <h3 class="mb-3 text-center">Сатып алынған тауарларды енгізу</h3>
-    <form action="">
+    <form id="purchase">
         <fieldset>
             <div class="row gx-1 mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col col-sm-2 text-start">Құжат нөмірі</label>
@@ -38,8 +38,8 @@
                         <option selected value=""></option>
                     </select> -->
                     <div class="input-group input-group-sm">
-                        <input type="text" id="id_counter" class="d-none">
-                        <input type="text" name="counteragent" id="counteragents" class="form-control form-control-sm" value="" autocomplete="false">
+                        <input type="text" id="id_counteragent" class="d-none">
+                        <input type="text" id="counteragent" name="counteragent" class="form-control form-control-sm" value="" autocomplete="false">
                         <button class="btn btn-secondary" type="button"  id="addcounteragent">+</button>
                     </div>
                     
@@ -88,8 +88,8 @@
                             <td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled></td>
                             <td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td>
                             <td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id="" disabled></td>
-                            <td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td>
-                            <td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td>
+                            <td><input name="qty" class="astable form-control form-control-sm text-end" type="text" id=""></td>
+                            <td><input name="price" class="astable form-control form-control-sm text-end" type="text" id=""></td>
                             <td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled></td>
                             <td name="plus" class="text-center">+</td>
                             <td name="" class="text-center">-</td>
@@ -119,9 +119,9 @@
             </div>
             <div class="row my-3 justify-content-end">
                 <div class="d-grid gap-2 d-flex justify-content-end">
-                    <button id="btn_product" type="button" class="btn btn-sm btn-secondary">Добавить товар</button>
-                    <button type="button" class="btn btn-sm btn-secondary">Отменить</button>
-                    <button type="button" class="btn btn-sm btn-primary">Сохранить</button>
+                    <button id="btn_product" type="button" class="btn btn-sm btn-secondary">Жаңа тауар</button>
+                    <button type="button" class="btn btn-sm btn-secondary">Жауып таста</button>
+                    <button id="save_purchase" type="button" class="btn btn-sm btn-primary">Сақтап қой</button>
                 </div>
             </div>
         </fieldset>
@@ -132,7 +132,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalXlLabel">Добавление контрагента</h5>
+                <h5 class="modal-title" id="exampleModalXlLabel">Жаңа контрагентті енгізу</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
@@ -141,32 +141,32 @@
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col col-sm-2 text-start">БИН / ИИН</label>
                             <div class="col col-sm-3">
-                                <input id="bin" type="text" class="form-control form-control-sm" name="bin">
+                                <input id="bin" type="text" class="form-control form-control-sm" name="bin" required>
                             </div>
                             <div class="col-sm-3">
-                                <button class="btn btn-sm btn-primary" id="paste_data" type="button">Вставить данные Контрагента</button>
+                                <button class="btn btn-sm btn-primary" id="paste_data" type="button">Буферден енгізу</button>
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col-2 text-start">Контрагент</label>
                             <div class="col-10">
-                                <input id="counteragent" type="text" class="form-control form-control-sm" name="counter">
+                                <input id="counteragent" type="text" class="form-control form-control-sm" name="counter" required>
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
-                            <label for="" class="form-label col-form-label col-form-label-sm col-2 col-sm-2 text-start">Адрес</label>
+                            <label for="" class="form-label col-form-label col-form-label-sm col-2 col-sm-2 text-start">Мекен жайы</label>
                             <div class="col-10">
                                 <input type="text" class="form-control form-control-sm" id="address" name="address">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
-                            <label for="" class="form-label col-form-label col-form-label-sm col-2">Телефон</label>
+                            <label for="" class="form-label col-form-label col-form-label-sm col-2">Телефондары</label>
                             <div class="col col-md-6 col-sm-10">
                                 <input type="text" class="form-control form-control-sm" id="tel" name="tel">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
-                            <label for="" class="form-label col-form-label col-form-label-sm col-2">Контактное лицо</label>
+                            <label for="" class="form-label col-form-label col-form-label-sm col-2">Хабарласатын кісі</label>
                             <div class="col col-md-6 col-sm-10">
                                 <input type="text" class="form-control form-control-sm" id="contact" name="contact">
                             </div>
@@ -175,8 +175,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-sm btn-primary" id="save">Сохранить изменения</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Жауып таста</button>
+                <button type="button" class="btn btn-sm btn-primary" id="save">Сақтап қой</button>
             </div>
         </div>
     </div>
@@ -186,7 +186,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Добавление товара</h5>
+                <h5 class="modal-title" id="addProductModalLabel">Жаңа тауарды енгізу</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
@@ -199,13 +199,13 @@
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
-                            <label for="product" class="form-label col-form-label col-form-label-sm col-2 text-start">Наименование</label>
+                            <label for="product" class="form-label col-form-label col-form-label-sm col-2 text-start">Тауардың атауы</label>
                             <div class="col-10">
                                 <input id="product" type="text" class="form-control form-control-sm" name="">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
-                            <label for="unit" class="form-label col-form-label col-form-label-sm col-2 col-sm-2 text-start">Ед.измерения</label>
+                            <label for="unit" class="form-label col-form-label col-form-label-sm col-2 col-sm-2 text-start">Өлш.бір.</label>
                             <div class="col-2">
                                 <input type="text" class="form-control form-control-sm" id="unit" name="">
                             </div>
@@ -214,8 +214,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-sm btn-primary" id="save_product">Сохранить изменения</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Жауып таста</button>
+                <button type="button" class="btn btn-sm btn-primary" id="save_product">Сақтап қой</button>
             </div>
         </div>
     </div>
@@ -312,10 +312,6 @@
             $(this).select();
         })
 
-        $('input.astable').on('blur', function() {
-            // console.log(this);
-            // ct_table.addClass('d-none');
-        })
 
         $('#products').on('input', 'input[name="product"]', function(e) {
             current = $(this);
@@ -365,21 +361,24 @@
             $('#summ').val(summ());
         })
 
-        $('#products').on('input', 'input[name="calc"]', function(e) {
+        $('#products').on('input', 'input[name]', function(e) {
             //current = $(this);
             //ct_table.removeClass('d-none');
             //$(this).after(ct_table);
             row = $(this).parent().parent();
-            //console.log(row);
-            inputs = row.find('input[name="calc"]');
+            console.log(row);
+            qty = row.find('input[name="qty"]');
+            price = row.find('input[name="price"]');
             equal = row.find('input[name="equal"]');
-            // console.log(inputs);
+            // console.log(qty);
+            // console.log(price);
+            // console.log(equal);
             
-            $(equal[0]).val($(inputs[0]).val() * $(inputs[1]).val());
+            $(equal[0]).val($(qty[0]).val() * $(price[0]).val());
             $('#summ').val(summ());
         });
 
-        trow = '<tr><td><input name="id_products" class="astable form-control form-control-sm" type="text" id="" disabled></td><td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td><td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id=""disabled></td><td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="calc" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id=""disabled></td><td name="plus" class="text-center">+</td><td name="minus" class="text-center">-</td></tr>';
+        trow = '<tr><td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled></td><td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td><td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id=""disabled></td><td><input name="qty" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="price" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled></td><td name="plus" class="text-center">+</td><td name="minus" class="text-center">-</td></tr>';
 
         $('#products').on('click', 'td[name="plus"]', function(e) {
             $(this).parent().after(trow);
@@ -472,6 +471,39 @@
                 result.addClass('d-none');
             }
         })
+
+        // Енді тауарларды серверге жазып қоямыз
+        $('#purchase').on('submit', function(e) {
+            e.preventDefault();
+
+            inputs = $('#purchase').find('input:not(.astable)');
+            
+            for ( elem of inputs) {
+                console.log($(elem).val());
+            };
+
+            inputs = $('#purchase').find('input.astable');
+            data = {
+                id: [],
+                product: [],
+                qty: [],
+                price: []
+            }
+            for ( elem of inputs) {
+                switch($(elem).attr('name')) {
+                    case 'id_product': data.id.push($(elem).val()); break;
+                    case 'product': data.product.push($(elem).val()); break;
+                    case 'qty': data.qty.push($(elem).val()); break;
+                    case 'price': data.price.push($(elem).val()); break;
+                }
+
+            };
+            console.log(data);
+        });
+        $('#save_purchase').click(function() {
+            $('#purchase').trigger('submit');
+        });
+
     });
 
     

@@ -1,4 +1,4 @@
-$('#counteragents').on('input', (e) => {
+$('#counteragent').on('input', (e) => {
     var s = e.target.value;
     var result = $('div.result-box:first');
     var tbody = $('div.result-box:first tbody');
@@ -12,7 +12,7 @@ $('#counteragents').on('input', (e) => {
             
                 data.forEach(element => {
                     // s = s + "<tr><td>" + element.id + '</td><td>' + element.Short_name + "</td></tr>";
-                    s = s + "<tr><td>" + element.BIN + '</td><td>' + element.Name + "</td></tr>";
+                    s = s + "<tr><td>" + element.id + '</td><td>' + element.BIN + '</td><td>' + element.Name + "</td></tr>";
                 });
 
                 //s = s + "</ul>"
@@ -26,7 +26,7 @@ $('#counteragents').on('input', (e) => {
     }
 }) 
 
-$('#counteragents').on('focus', function() {
+$('#counteragent').on('focus', function() {
     // автовыделение текста
     $(this).select();
 })
@@ -34,9 +34,11 @@ $('#counteragents').on('focus', function() {
 $('.counter>table').on('click', 'tr', function() {
     console.log($(this).find('td')[0].innerText);
     console.log($(this).find('td')[1].innerText);
+    console.log($(this).find('td')[2].innerText);
 
     // $('#counteragents_bin').val($(this).find('td')[0].innerText)
-    $('#counteragents').val($(this).find('td')[1].innerText)
+    $('#id_counteragent').val($(this).find('td')[0].innerText)
+    $('#counteragent').val($(this).find('td')[2].innerText)
     $(this).find('td').each(function(cell){
 		// console.log(' ячейка ' + cell + ', значение: ' + $(this).text());
 	});
