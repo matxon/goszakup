@@ -243,7 +243,7 @@
             navigator.clipboard
                 .readText()
                 .then( function(text) {
-                    console.log(text);
+                    //console.log(text);
                     arr = text.split('\t');
                     $('#bin').val(arr[0]);
                     $('#counteragent').val(arr[1]);
@@ -279,7 +279,7 @@
                 type: 'post',
                 data: data,
                 success: function(res) {
-                    console.log(res);
+                    //console.log(res);
                     //myModal.dispose();
                     myModal.hide();
                 },
@@ -325,7 +325,7 @@
             if (s.length > 2) {
                 $.post('/products', {"str": s.trim() }, 
                     function(data) {
-                        console.log(data);
+                        //console.log(data);
                         // data: объекттерден тұратын массив
                         s = "";
                     
@@ -349,9 +349,9 @@
 
         ct_table.on('click', 'tr', function() {
             row = current.parent().parent();
-            console.log(row);
+            //console.log(row);
             inputs = row.find('input');
-            console.log(inputs);
+            //console.log(inputs);
             $(inputs[0]).val($(this).find('td')[0].innerText);
             $(inputs[1]).val($(this).find('td')[1].innerText);
             $(inputs[2]).val($(this).find('td')[2].innerText);
@@ -366,7 +366,7 @@
             //ct_table.removeClass('d-none');
             //$(this).after(ct_table);
             row = $(this).parent().parent();
-            console.log(row);
+            //console.log(row);
             qty = row.find('input[name="qty"]');
             price = row.find('input[name="price"]');
             equal = row.find('input[name="equal"]');
@@ -393,7 +393,7 @@
             equals = $('#products').find('input[name="equal"]');
             s = 0;
 
-            console.log(equals);
+            //console.log(equals);
             for (a of equals) {
                 s += Number($(a).val());
             }
@@ -426,7 +426,7 @@
                 type: 'post',
                 data: data,
                 success: function(res) {
-                    console.log(res);
+                    //console.log(res);
                     productModal.hide();
                 },
                 error: function(err) {
@@ -451,7 +451,7 @@
             if (s.length > 2) {
                 $.post('/products', {"str": s.trim() }, 
                     function(data) {
-                        console.log(data);
+                        //console.log(data);
                         // data: объекттерден тұратын массив
                         s = "";
                     
@@ -499,6 +499,9 @@
 
             };
             console.log(data);
+            // TODO:
+            // validation жасау керек, серверге жіберетін button
+            // ойланбастан жібере салады
         });
         $('#save_purchase').click(function() {
             $('#purchase').trigger('submit');
