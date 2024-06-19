@@ -285,7 +285,7 @@
                     myModal.hide();
                 },
                 error: function(err) {
-                    console.error(err);
+                    alert(err.responseText);
                 }
             })
         });
@@ -474,38 +474,45 @@
         $('#purchase').on('submit', function(e) {
             e.preventDefault();
 
-            inputs = $('#purchase').find('input:not(.astable)');
-            
-            // бізде id болғандықтан бұл әдісті пайдаланбаймыз
-            for ( elem of inputs) {
-                //console.log($(elem).val());
-            };
-
-            inputs = $('#purchase').find('input.astable');
             data = {
                 date: $('#date').val(),
                 id_counteragent: $('#id_counteragent').val(),
                 summ: $('#summ').val(),
                 cash: $('#cash').val(),
                 card: $('#card').val(),
-                id: [],
-                product: [],
-                qty: [],
-                price: []
+                products: []
             }
-            for ( elem of inputs) {
-                switch($(elem).attr('name')) {
-                    case 'id_product': data.id.push($(elem).val()); break;
-                    case 'product': data.product.push($(elem).val()); break;
-                    case 'qty': data.qty.push($(elem).val()); break;
-                    case 'price': data.price.push($(elem).val()); break;
-                }
+
+            id = $('#purchase').find('input[name="id_product"]');
+            qty = $('#purchase').find('input[name="qty"]');
+            price = $('#purchase').find('input[name="price"]');
+
+            for ( i = 0; i < id.length; i++) {
+
+                data.products.push({
+                    'id_product': $(id[i]).val(),
+                    'qty': $(qty[i]).val(),
+                    'price': $(price[i]).val(),
+                });
 
             };
             console.log(data);
             // TODO:
             // validation жасау керек, серверге жіберетін button
             // ойланбастан жібере салады
+            $.ajax({
+                url: '/savePurchase',
+                type: 'post',
+                data: data,
+                success: function(res) {
+                    //console.log(res);
+                    //productModal.hide();
+                },
+                error: function(err) {
+                    //console.error(err);
+                    alert(err.responseText);
+                }
+            })
         });
         $('#save_purchase').click(function() {
             $('#purchase').trigger('submit');
