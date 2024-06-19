@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.post('/products', (req, res) => {
     console.log(req.body);
-    sql = "SELECT * FROM products WHERE concat(id,product_name) like ?";
+    sql = "SELECT * FROM products WHERE concat(id,product_name) like ? ORDER BY product_name";
     db.all(sql, ['%' + req.body.str + '%'], (err, rows) => {
         if (err) return console.error(err.message);
         res.send(rows);

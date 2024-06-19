@@ -33,6 +33,11 @@ select.astable:focus, input.astable:focus {
     width: auto;
 }
 
+.result-box.astable.free {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 .result-box {
     position: absolute;
     width: 70%;
@@ -42,7 +47,7 @@ select.astable:focus, input.astable:focus {
     /* border: 1px solid red; */
 }
 
-.result-box ul {
+/* .result-box ul {
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
     padding: 15px 10px ;
@@ -60,7 +65,7 @@ select.astable:focus, input.astable:focus {
 
 .result-box ul li:hover {
     background-color: rgb(204, 253, 255);
-}
+} */
 
 .result-box>.table {
     border: 2px solid black;

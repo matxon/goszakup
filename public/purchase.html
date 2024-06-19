@@ -99,6 +99,7 @@
             
                 
             </div>
+
             <div class="row mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col-2 offset-sm-7 mr-3 text-end">Барлығы:</label>
                 <div class="col-4 col-sm-3">
@@ -108,13 +109,13 @@
             <div class="row mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col-2 offset-sm-7 mr-3 text-end">Қолма-қол төленгені:</label>
                 <div class="col-4 col-sm-3">
-                    <input type="text" class="form-control form-control-sm text-end" id="" >
+                    <input type="text" class="form-control form-control-sm text-end" id="cash" >
                 </div>
             </div>
             <div class="row mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col-2 offset-sm-7 mr-3 text-end">Карточкадан төленгені:</label>
                 <div class="col-4 col-sm-3">
-                    <input type="text" class="form-control form-control-sm text-end" id="" >
+                    <input type="text" class="form-control form-control-sm text-end" id="card" >
                 </div>
             </div>
             <div class="row my-3 justify-content-end">
@@ -315,7 +316,7 @@
 
         $('#products').on('input', 'input[name="product"]', function(e) {
             current = $(this);
-            ct_table.removeClass('d-none');
+            //ct_table.removeClass('d-none');
             $(this).after(ct_table);
 
             var s = e.target.value;
@@ -330,13 +331,10 @@
                         s = "";
                     
                         data.forEach(element => {
-                            // s = s + "<tr><td>" + element.id + '</td><td>' + element.Short_name + "</td></tr>";
                             s = s + "<tr><td>" + element.id + '</td><td>' + element.Product_name + "</td><td>" +
-                                element.Unit + "</td><td>" + element.Receipt + "</td><td>" + element.Trade + "</td></tr>";
+                                element.Unit + "</td></tr>";
                         });
-
-                        //s = s + "</ul>"
-
+                        
                         result.removeClass('d-none')
                         tbody.html(s);
                     }
@@ -440,13 +438,16 @@
             $('#addProduct').trigger('submit');
         })
 
+        add_product = ct_table.clone();
+
+
         $('#product').on('input', function(e) {
-            ct_table.removeClass('d-none');
-            $(this).after(ct_table);
+
+            $(this).after(add_product);
 
             var s = e.target.value;
-            var result = ct_table;
-            var tbody = $('.result-box.free:first tbody');
+            var result = add_product;
+            var tbody = $(add_product).find('tbody');
 
             if (s.length > 2) {
                 $.post('/products', {"str": s.trim() }, 
@@ -456,12 +457,9 @@
                         s = "";
                     
                         data.forEach(element => {
-                            // s = s + "<tr><td>" + element.id + '</td><td>' + element.Short_name + "</td></tr>";
                             s = s + "<tr><td>" + element.id + '</td><td>' + element.Product_name + "</td><td>" +
-                                element.Unit + "</td><td>" + element.Receipt + "</td><td>" + element.Trade + "</td></tr>";
+                                element.Unit + "</td></tr>";
                         });
-
-                        //s = s + "</ul>"
 
                         result.removeClass('d-none')
                         tbody.html(s);
@@ -478,12 +476,18 @@
 
             inputs = $('#purchase').find('input:not(.astable)');
             
+            // бізде id болғандықтан бұл әдісті пайдаланбаймыз
             for ( elem of inputs) {
-                console.log($(elem).val());
+                //console.log($(elem).val());
             };
 
             inputs = $('#purchase').find('input.astable');
             data = {
+                date: $('#date').val(),
+                id_counteragent: $('#id_counteragent').val(),
+                summ: $('#summ').val(),
+                cash: $('#cash').val(),
+                card: $('#card').val(),
                 id: [],
                 product: [],
                 qty: [],
