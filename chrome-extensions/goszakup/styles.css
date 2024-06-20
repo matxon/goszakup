@@ -11,6 +11,10 @@
     margin-top: 5px;
 }
 
+.start {
+    background-color:palegoldenrod !important;
+}
+
 .finished {
     background-color: #81ffab !important;
 }
@@ -18,6 +22,7 @@
 .complaint-red {
     background-color: #fd8992 !important;
 }
+
 
 a:visited {
     color: #a81226 !important;

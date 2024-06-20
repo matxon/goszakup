@@ -7,6 +7,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
 
     // егер localStorage-де осы келісім шарттың нөмірі тізімде болса 
     list = localStorage.getItem('finish') ? JSON.parse(localStorage.getItem('finish')) : [];
+    slist = localStorage.getItem('start') ? JSON.parse(localStorage.getItem('start')) : [];
 
     // for Мои договоры
     var pagetable = $('#page_table').DataTable({
@@ -23,6 +24,10 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
                 
                 if (list.includes($(data).text().trim())) {
                     $('#'+row.DT_RowId).addClass('finished');
+                }
+
+                if (slist.includes($(data).text().trim())) {
+                    $('#'+row.DT_RowId).addClass('start');
                 }
                 
                 return data.replace('edit', 'units');
@@ -130,13 +135,11 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
 // Страница просмотра договора
 if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontract/supcontract/contract/")) {
 
-    $('<div class="col-md-6"><button id="copy_contract" class="btn btn-primary margin-top-15" type="button">Скопировать данные Заказчика</button></div>').prependTo($('.tab-content>.tab-pane:first'));
-    $('<div class="col-md-3"><input class=" margin-top-15" type="checkbox" id="checkbox_finish"/><span> Договордағы тауарларды апарып бердім </span></div>').prependTo($('.tab-content>.tab-pane:first'));
-    $('<div class="col-md-3"><input class=" margin-top-15" type="checkbox" id="checkbox_contract" checked /><span> Скрыть содержание договора </span></div>').prependTo($('.tab-content>.tab-pane:first'));
-
-
+    $('<div class="row" id="gospanel"><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_contract" checked /><span> Скрыть содержание договора </span></div><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_start"/><span> Тауарларды сатып алуым керек </span></div><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_finish"/><span> Договордағы тауарларды апарып бердім </span></div><div class="col-md-2"><button id="copy_contract" class="btn btn-primary margin-top-15" type="button">Скопировать данные Заказчика</button></div></div>').prependTo($('.tab-content>.tab-pane:first'));
+    
     // localStorage-дегі запись
     list = localStorage.getItem('finish') ? JSON.parse(localStorage.getItem('finish')) : [];
+    slist = localStorage.getItem('start') ? JSON.parse(localStorage.getItem('start')) : [];
 
     // договордың нөмірі
     num = $('h4:first').text().trim().substring(10).trim();
@@ -145,8 +148,14 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
     
     if (list.includes(num)) {
         $('#checkbox_finish').prop('checked', true);
-        console.log(num, list);
+        // console.log(num, list);
     };
+
+    if (slist.includes(num)) {
+        $('#checkbox_start').prop('checked', true);
+        // console.log(num, list);
+    };
+
 
     $('#econtract_data').toggleClass('displaynone');
 
@@ -165,6 +174,19 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
         } else {
             nlist = list.filter((elem) => elem!=num);
             localStorage.setItem('finish', JSON.stringify(nlist));
+        }
+    });
+
+    
+    $('#checkbox_start').on('click', function() {
+        
+        if ($(this).prop('checked')) {
+            slist = localStorage.getItem('start') ? JSON.parse(localStorage.getItem('start')) : [];
+            slist.push(num);
+            localStorage.setItem('start', JSON.stringify(slist));
+        } else {
+            nlist = slist.filter((elem) => elem!=num);
+            localStorage.setItem('start', JSON.stringify(nlist));
         }
     });
 
