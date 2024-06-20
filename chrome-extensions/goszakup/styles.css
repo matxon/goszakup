@@ -11,6 +11,10 @@
     margin-top: 5px;
 }
 
+.finished {
+    background-color: #81ffab !important;
+}
+
 .complaint-red {
     background-color: #fd8992 !important;
 }
