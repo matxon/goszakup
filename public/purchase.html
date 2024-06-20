@@ -15,7 +15,7 @@
             <div class="row gx-1 mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col col-sm-2 text-start">Құжат нөмірі</label>
                 <div class="col col-sm-3">
-                    <input id="id" type="text" class="form-control form-control-sm" disabled>
+                    <input id="id" type="text" class="form-control form-control-sm" autocomplete="off" disabled>
                 </div>
             </div>
             <div class="row gx-1 mb-1">
@@ -39,7 +39,7 @@
                     </select> -->
                     <div class="input-group input-group-sm">
                         <input type="text" id="id_counteragent" class="d-none">
-                        <input type="text" id="counteragent" name="counteragent" class="form-control form-control-sm" value="" autocomplete="false">
+                        <input type="text" id="counteragent" name="counteragent" class="form-control form-control-sm" value="" autocomplete="off">
                         <button class="btn btn-secondary" type="button"  id="addcounteragent">+</button>
                     </div>
                     
@@ -85,12 +85,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled></td>
-                            <td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td>
-                            <td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id="" disabled></td>
-                            <td><input name="qty" class="astable form-control form-control-sm text-end" type="text" id=""></td>
-                            <td><input name="price" class="astable form-control form-control-sm text-end" type="text" id=""></td>
-                            <td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled></td>
+                            <td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled autocomplete="off"></td>
+                            <td><input name="product" class="astable form-control form-control-sm" type="text" id="" autocomplete="off"></td>
+                            <td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id="" disabled autocomplete="off"></td>
+                            <td><input name="qty" class="astable form-control form-control-sm text-end" type="text" id="" autocomplete="off"></td>
+                            <td><input name="price" class="astable form-control form-control-sm text-end" type="text" id="" autocomplete="off"></td>
+                            <td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled autocomplete="off"></td>
                             <td name="plus" class="text-center">+</td>
                             <td name="" class="text-center">-</td>
                         </tr>
@@ -103,19 +103,19 @@
             <div class="row mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col-2 offset-sm-7 mr-3 text-end">Барлығы:</label>
                 <div class="col-4 col-sm-3">
-                    <input type="text" class="form-control form-control-sm text-end" id="summ" disabled>
+                    <input type="text" class="form-control form-control-sm text-end" id="summ" disabled autocomplete="off">
                 </div>
             </div>
             <div class="row mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col-2 offset-sm-7 mr-3 text-end">Қолма-қол төленгені:</label>
                 <div class="col-4 col-sm-3">
-                    <input type="text" class="form-control form-control-sm text-end" id="cash" >
+                    <input type="text" class="form-control form-control-sm text-end" id="cash" autocomplete="off" >
                 </div>
             </div>
             <div class="row mb-1">
                 <label for="" class="form-label col-form-label col-form-label-sm col-2 offset-sm-7 mr-3 text-end">Карточкадан төленгені:</label>
                 <div class="col-4 col-sm-3">
-                    <input type="text" class="form-control form-control-sm text-end" id="card" >
+                    <input type="text" class="form-control form-control-sm text-end" id="card" autocomplete="off" >
                 </div>
             </div>
             <div class="row my-3 justify-content-end">
@@ -142,7 +142,7 @@
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col col-sm-2 text-start">БИН / ИИН</label>
                             <div class="col col-sm-3">
-                                <input id="bin" type="text" class="form-control form-control-sm" name="bin" required>
+                                <input id="bin" type="text" class="form-control form-control-sm" name="bin" required autocomplete="off">
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-sm btn-primary" id="paste_data" type="button">Буферден енгізу</button>
@@ -151,25 +151,25 @@
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col-2 text-start">Контрагент</label>
                             <div class="col-10">
-                                <input id="counteragent" type="text" class="form-control form-control-sm" name="counter" required>
+                                <input id="countername" type="text" class="form-control form-control-sm" name="counter" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col-2 col-sm-2 text-start">Мекен жайы</label>
                             <div class="col-10">
-                                <input type="text" class="form-control form-control-sm" id="address" name="address">
+                                <input type="text" class="form-control form-control-sm" id="address" name="address" autocomplete="off">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col-2">Телефондары</label>
                             <div class="col col-md-6 col-sm-10">
-                                <input type="text" class="form-control form-control-sm" id="tel" name="tel">
+                                <input type="text" class="form-control form-control-sm" id="tel" name="tel" autocomplete="off">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
                             <label for="" class="form-label col-form-label col-form-label-sm col-2">Хабарласатын кісі</label>
                             <div class="col col-md-6 col-sm-10">
-                                <input type="text" class="form-control form-control-sm" id="contact" name="contact">
+                                <input type="text" class="form-control form-control-sm" id="contact" name="contact" autocomplete="off">
                             </div>
                         </div>
                     </fieldset>
@@ -177,7 +177,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Жауып таста</button>
-                <button type="button" class="btn btn-sm btn-primary" id="save">Сақтап қой</button>
+                <button type="button" class="btn btn-sm btn-primary" id="save_counter">Сақтап қой</button>
             </div>
         </div>
     </div>
@@ -196,13 +196,13 @@
                         <div class="row gx-1 mb-3">
                             <label for="id_product" class="form-label col-form-label col-form-label-sm col col-sm-2 text-start">Код</label>
                             <div class="col col-sm-2">
-                                <input id="id_product" type="text" class="form-control form-control-sm" name="" disabled>
+                                <input id="id_product" type="text" class="form-control form-control-sm" name="" disabled autocomplete="off">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
                             <label for="product" class="form-label col-form-label col-form-label-sm col-2 text-start">Тауардың атауы</label>
                             <div class="col-10">
-                                <input id="product" type="text" class="form-control form-control-sm" name="">
+                                <input id="product" type="text" class="form-control form-control-sm" name="" autocomplete="off">
                             </div>
                         </div>
                         <div class="row gx-1 mb-3">
@@ -269,7 +269,7 @@
             event.preventDefault();
             const data = {
                 bin: $('#bin').val(),
-                counteragent: $('#counteragent').val(),
+                counteragent: $('#countername').val(),
                 address: $('#address').val(),
                 tel: $('#tel').val(),
                 contact: $('#contact').val(),
@@ -280,7 +280,7 @@
                 type: 'post',
                 data: data,
                 success: function(res) {
-                    //console.log(res);
+                    console.log(data);
                     //myModal.dispose();
                     myModal.hide();
                 },
@@ -291,7 +291,7 @@
         });
 
         // Базаға жазатын функцияны шақыру
-        $('#save').on('click', function() {
+        $('#save_counter').on('click', function() {
             form = $('#addCounter').trigger('submit', function() {   
             })
 
@@ -376,7 +376,7 @@
             $('#summ').val(summ());
         });
 
-        trow = '<tr><td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled></td><td><input name="product" class="astable form-control form-control-sm" type="text" id=""></td><td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id=""disabled></td><td><input name="qty" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="price" class="astable form-control form-control-sm text-end" type="text" id=""></td><td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled></td><td name="plus" class="text-center">+</td><td name="minus" class="text-center">-</td></tr>';
+        trow = '<tr><td><input name="id_product" class="astable form-control form-control-sm" type="text" id="" disabled autocomplete="off"></td><td><input name="product" class="astable form-control form-control-sm" type="text" id="" autocomplete="off"></td><td><input name="unit" class="astable form-control form-control-sm text-center" type="text" id=""disabled autocomplete="off"></td><td><input name="qty" class="astable form-control form-control-sm text-end" type="text" id="" autocomplete="off"></td><td><input name="price" class="astable form-control form-control-sm text-end" type="text" id="" autocomplete="off"></td><td><input name="equal" class="astable form-control form-control-sm text-end" type="text" id="" disabled autocomplete="off"></td><td name="plus" class="text-center">+</td><td name="minus" class="text-center">-</td></tr>';
 
         $('#products').on('click', 'td[name="plus"]', function(e) {
             $(this).parent().after(trow);
@@ -507,6 +507,7 @@
                 success: function(res) {
                     //console.log(res);
                     //productModal.hide();
+                    location.reload(true);
                 },
                 error: function(err) {
                     //console.error(err);

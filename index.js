@@ -29,7 +29,7 @@ app.post('/products', (req, res) => {
 
 app.post('/counteragent', (req, res) => {
     // console.log(req.body);
-    sql = db.prepare("SELECT id, bin, name FROM counteragents WHERE concat(bin,name,address) like ?");
+    sql = db.prepare("SELECT id, bin, name FROM counteragents WHERE concat(bin,name,address) like ? ORDER BY name");
     rows = sql.all('%' + req.body.name + '%')
     
     res.send(rows);
@@ -91,7 +91,7 @@ app.post('/savePurchase', (req, res) => {
 
             if (data.cash) {
                 sql = db.prepare("INSERT INTO journal(date, id_counteragent, id_purchase, dt, ct, summ, description ) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                sql.run( data.date, data.id_counteragent, info.lastInsertRowid, '60', '50', data.cash, 'Тауарлардың ақшасы қол-қол төленді');
+                sql.run( data.date, data.id_counteragent, info.lastInsertRowid, '60', '50', data.cash, 'Тауарлардың ақшасы қолма-қол төленді');
 
                 sql = db.prepare("INSERT INTO kassa_50(date, id_counteragent, korrchet, ct) VALUES (?, ?, ?, ?)");
                 sql.run( data.date, data.id_counteragent, '60', data.cash);
@@ -100,7 +100,7 @@ app.post('/savePurchase', (req, res) => {
                 sql.run( data.date, data.id_counteragent, '50', data.cash);
             }
 
-            if (data.cash) {
+            if (data.card) {
                 sql = db.prepare("INSERT INTO journal(date, id_counteragent, id_purchase, dt, ct, summ, description) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 sql.run( data.date, data.id_counteragent, info.lastInsertRowid, '60', '51', data.card, 'Тауарлардың ақшасы карточкамен төленді');
 
