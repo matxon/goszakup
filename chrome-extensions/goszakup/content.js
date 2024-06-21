@@ -17,8 +17,8 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
         stateSave: true,
         paging: false,
         columns: [
-            null, //{ visible: false },                                 // 0. checkbox
-            null, //{ visible: false },                                 // 1. Id
+            { visible: false }, //null,                                 // 0. checkbox
+            { visible: false }, //null,                                 // 1. Id
             //null,                                             // 2. Номер договора
             { render: function(data, type, row) {
                 
@@ -33,10 +33,10 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
                 return data.replace('edit', 'units');
             }},
 
-            null, //{ visible: false },                                 // 3. Непрочитанные сообщения
+            { visible: false }, //null,                                 // 3. Непрочитанные сообщения
             null, //{ visible: false },                                 // 4. Номер закупки
             
-            null, //{ visible: false },                                 // 5. Тип договора
+            { visible: false }, //null,                                 // 5. Тип договора
 
             //     { render: function(data, type, row) {
             //         if (data.includes('Исполнен') ) {
@@ -49,9 +49,9 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
             null,                                               // 6. Статус договора
 
             null, //{ visible: false },                                 // 7. Способ закупки
-            null, //{ visible: true },                                  // 8. Финансовый год
-            null,                                               // 9. Сумма без НДС
-            null,                                               // 10. Сумма с НДС
+            { visible: false }, //null,                                 // 8. Финансовый год
+            null,                                                       // 9. Сумма без НДС
+            { visible: false },                                         // 10. Сумма с НДС
 
             { render: function(data, type, row) {
                 if ( $('#'+row.DT_RowId).hasClass('complaint-red')) {
@@ -59,13 +59,13 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
                 }
                 return '<a title="Открыть Договор" href="https://v3bl.goszakup.gov.kz/ru/egzcontract/supcontract/contract/' + row.DT_RowId.slice(12) + '">' + data + '</a>';
             }},
-            //null,                                             // 11. Заказчик
+            //null,                                                     // 11. Заказчик
 
-            null,                                               // 12. Статус
+            { visible: false} , // null,                                // 12. Статус
 
-            null, //{ visible: false },                                 // 13. Автор договора
+            { visible: false }, // null,                                // 13. Автор договора
 
-            null, //{ visible: false },                                 // 14. Дата создания
+            { visible: false }, // null,                                // 14. Дата создания
             null
         ]
     });
@@ -211,6 +211,45 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
             console.log(err.message);
         }
     };
+
+    var table = [];
+    //var table = '';
+    trs = $('#econtract_pril_data>div:nth-child(2)>table>tbody>tr'); 
+    var col; // бағандардың саны
+
+    for(i=0; i<trs.length; i++) {
+        if (i==0) {
+            tds=$(trs[i]).find('th');
+            col = $(tds).length;
+        } else {
+            tds = $(trs[i]).find('td');
+        }
+        arr = [];
+        //arr = '';
+        index = 0;
+        for (j=0; j<tds.length; j++) {
+             
+            if (tds.length<col) break;
+            if (tds.length==col) {
+                arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
+                //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
+                index++;
+            }
+            if (tds.length>col) {
+                if (j==10 || j==12) continue;
+                
+                arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
+                //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
+                index++;
+            }
+            
+        }
+        if (index == col)  table.push(arr);
+        //if (index == col)  table += arr + '\n';
+    }
+
+    console.log(table);
+
 }
 
 // Страница просмотра объявления

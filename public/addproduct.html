@@ -358,16 +358,16 @@
              
             if (tds.length<col) break;
             if (tds.length==col) {
-                //arr[index] = $(tds[j]).text().trim();
-                //console.log($(tds[j]).text().trim());
+                //arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
+                //console.log($(tds[j]).text().replace(/[\r\n\t\b]/g,''));
                 //index++;
             }
             if (tds.length>col) {
                 if (j==10 || j==12) continue;
                 
-                // arr[index] = $(tds[j]).text().trim();
+                // arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
                 arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
-                //console.log($(tds[j]).text().trim());
+                //console.log($(tds[j]).text().replace(/[\r\n\t\b]/g,''));
                 index++;
             }
             
