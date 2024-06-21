@@ -231,14 +231,14 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
              
             if (tds.length<col) break;
             if (tds.length==col) {
-                arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
+                // arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
                 //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
-                index++;
+                // index++;
             }
             if (tds.length>col) {
                 if (j==10 || j==12) continue;
                 
-                arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
+                arr[index] = $(tds[j]).text().trim().replace(/[\r\n\t\b]/g,'');
                 //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
                 index++;
             }
@@ -248,7 +248,73 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
         //if (index == col)  table += arr + '\n';
     }
 
-    console.log(table);
+    //console.log(table);
+
+    products = $('#econtract_pril_data>div');
+    products.addClass('displaynone');
+
+    products.after('<div><table id="products" class="display"></table></div>');
+
+    $('#products').DataTable({
+        columns: [
+            {title: 'Лот', visible: false},
+            {title: 'Заказчик', visible: false},
+            {title: 'Наименование'},
+            {title: 'Крат. хар-ка'},
+            {title: 'Доп. хар-ка'},
+            {title: 'Ед.измер.'},
+            {title: 'Кол-во'},
+            {title: 'Цена за единицу', 
+                render: function(data, type, row) {
+                    return data.replace(/[\ ]/g,'');
+                }
+            },
+            {title: 'План.срок'},
+            {title: 'Срок по Дог.', visible: false},
+            {title: 'Место поставки', visible: false},
+            {title: 'Аванс,%', visible: false},
+            {title: 'Сумма', 
+                render: function(data, type, row) {
+                    return data.replace(/[\ ]/g,'');
+                }
+            },
+            {title: '14', visible: false}
+        ],
+        layout: {
+            topStart: {
+                buttons: [
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        messageTop: table[0][1] + '<br>' + table[0][10],
+                        // 'This print was produced using the Print button for DataTables',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt');
+    
+                            $(win.document.body)
+                                .find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    },
+                    'colvis'
+                ]
+            }
+        },
+        columnDefs: [
+            {
+                target: -1,
+                visible: false
+            }
+        ],
+        data: table,
+        ordering: false,
+        paging: false,
+        searching: false,
+    });
 
 }
 
