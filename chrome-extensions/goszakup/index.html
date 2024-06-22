@@ -4,43 +4,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Накладная на отпуск</title>
+    <style>
+        @media print {
+
+            
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+            html,body {
+                /* width: 297cm;    */
+                box-sizing: border-box;
+                font-size: 9px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        }
+
+        html, body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+        }
+
+        .pri {
+            font-size: 9px;
+            font-style: italic;
+            width: 180px;
+            position:sticky ;
+            right: 0;
+            float: right;
+            /* border: 1px solid red; */
+        }
+
+        .org, .orgname, .bin {
+            /* border: 1px solid red; */
+            display: inline-block;
+            /* position: relative; */
+            /* margin-top: 150px ; */
+        }
+
+        .orgname {
+            border-bottom: 1px solid;
+            width: 400px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .bin {
+            float: right;
+        }
+
+        .bin div {
+            display: inline-block;
+        }
+
+        .bin div:last-child {
+            width: 100px;
+            border: 1px solid;
+            text-align: center;
+            margin-left: 10px;
+        }
+
+        .dparent {
+            margin-top: 15px;
+        }
+
+        .docum {
+            width: 204px;
+            border: 1px solid;
+            float: right;
+        }
+
+        .docum div {
+            text-align: center;
+            width: 100px;
+            display: inline-block;
+            padding: 2px;
+            border: 1px solid;
+            box-sizing: border-box;
+        }
+
+        .right {
+            text-align: end;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        h3 {
+            padding: 25px;
+        }
+
+        t1 {
+            margin-top: 70px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 0 5px;
+            border: 1px solid;
+        }
+        .bold {
+            font-weight: bold;
+        }
+
+        .sign div {
+            display: inline-block;
+            width: 47%;
+            padding: 0 10px;
+            /* border: 1px solid; */
+        }
+        .sign {
+            width:auto;
+            margin: 10px 0;
+        }
+        .sign p {
+            display: inline-block;
+            margin: 0;
+        }
+        
+        .summ {
+            padding: 15px 0;
+            font-size: 9px;
+        }
+        
+        .summ div {
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <select name="status_id" id="filter-status_id" class="form-control input-sm" multiple="">
-        <option value=""></option>
-        <option value="110">Проект договора</option>
-        <option value="120">Отправлен на согласование поставщику</option>
-        <option value="130">На подписании у Заказчика</option>
-        <option value="160">Готов к отправке на регистрацию</option>
-        <option value="165">На регистрации в Казначействе</option>
-        <option value="190">Действует</option>
-        <option value="310">Уступка прав поставщика</option>
-        <option value="315">Уступка прав заказчика</option>
-        <option value="330">Не заключен</option>
-        <option value="340">Расторгнут в одностороннем порядке</option>
-        <option value="390">Исполнен</option>
-        <option value="410">Выбран 2 победитель</option>
-        <option value="420">Изменены итоги </option>
-        <option value="430">Отказ от закупки и договора</option>
-        <option value="450">Создано доп.соглашение</option>
-        <option value="125">Завершение согласования</option>
-        <option value="135">Формирование версии для печати</option>
-        <option value="131">На подписании у Поставщика</option>
-        <option value="462">Передан.Расторгнут в одностороннем порядке</option>
-        <option value="461">Передан.Не заключен</option>
-        <option value="463">Передан.Расторгнут по соглашению сторон</option>
-        <option value="464">Передан.Исполнен</option>
-        <option value="345">Ожидание расторжения договора</option>
-        <option value="456">Передача прав</option>
-        <option value="185">Подписан</option>
-        <option value="115">Отправлен на согласование заказчику</option>
-        <option value="375">Частично исполнен</option>
-        <option value="455">Изменен</option>
-        <option value="460">Передан.Действует</option>
-        <option value="465">Передан.Частично исполнен</option>
-        <option value="350">Расторгнут по соглашению сторон</option>
-        </select>
-    </select>
+    <div style="padding: 10px 60px;">
+
+        <div class="pri">
+            Приложение 26
+            к приказу Министра финансов
+            Республики Казахстан
+            от 20 декабря 2012 года № 562
+        </div>
+        <div style="padding-top: 55px;">
+            <div class="org">Организация (индивидуальный предприниматель)</div>
+            <div class="orgname">Индивидуальный предприниматель "Толкын"</div>
+            <div class="bin bold"><div>ИИН/БИН</div><div>780810300351</div></div>
+        </div>
+        <div class="dparent">
+            <div class="docum">
+                <div>Номер документа</div>
+                <div>дата составления</div>
+                <div class="bold">410</div>
+                <div class="bold">19.06.2024</div>
+            </div>
+        </div>
+
+        <h3 class="center">НАКЛАДНАЯ НА ОТПУСК ЗАПАСОВ НА СТОРОНУ</h3>
+        <table class="t1 center">
+            <tr>
+                <td width="20%">Организация (индивидуальный предприниматель) - отправитель</td>
+                <td width="20%">Организация (индивидуальный предприниматель) - получатель</td>
+                <td width="20%">Ответственный за поставку (Ф.И.О)</td>
+                <td width="20%">Транспортная накладная</td>
+                <td width="20%">Товарно-транспортная накладная (номер, дата)</td>
+            </tr>
+            <tr class="bold">
+                <td>Индивидуальный предприниматель "Толкын"</td>
+                <td>Коммунальное государственное учреждение "Средняя школа имени К.Абаханова" отдела образования Индерского района Управления образования Атырауской области</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <br>
+        <table width="100%">
+            <tr class="center">
+                <td rowspan="2" width="60px">Номер по порядку</td>
+                <td rowspan="2" >Наименование, характеристика</td>
+                <td rowspan="2" width="100px">Номенклатурный номер</td>
+                <td rowspan="2" width="80px">Единица измерения</td>
+                <td colspan="2">Количество</td>
+                <td rowspan="2" width="100px">Цена за единицу, в KZT</td>
+                <td rowspan="2" width="100px">Сумма с НДС</td>
+                <td rowspan="2" width="100px">Сумма без НДС</td>
+            </tr>
+            <tr class="center">
+                <td width="100px">подлежит отпуску</td>
+                <td width="100px">отпущено</td>
+            </tr>
+            <tr class="center">
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td class="center">1</td>
+                <td>Крупа пшено</td>
+                <td></td>
+                <td class="center">Килограмм</td>
+                <td class="right">6</td>
+                <td class="right">6</td>
+                <td class="right">389.00</td>
+                <td></td>
+                <td class="right">2 551.00</td>
+            </tr>
+            <tr>
+                <td class="center">2</td>
+                <td>Фрукты</td>
+                <td></td>
+                <td class="center">Килограмм</td>
+                <td class="right">36</td>
+                <td class="right">36</td>
+                <td class="right">599.00</td>
+                <td class="right"></td>
+                <td class="right">21 564.00</td>
+            </tr>
+            <tr>
+                <td class="center">3</td>
+                <td>Шубат</td>
+                <td></td>
+                <td class="center">Литр</td>
+                <td class="right">120</td>
+                <td class="right">120</td>
+                <td class="right">1 399.00</td>
+                <td class="right"></td>
+                <td class="right">167 880.00</td>
+            </tr>
+            <tr>
+                <td class="center">4</td>
+                <td>Окорочок куринный</td>
+                <td></td>
+                <td class="center">Килограмм</td>
+                <td class="right">40</td>
+                <td class="right">40</td>
+                <td class="right">1 249.00</td>
+                <td class="right"></td>
+                <td class="right">49 960.00</td>
+            </tr>
+            <tr>
+                <td class="center">5</td>
+                <td>Рожки</td>
+                <td></td>
+                <td class="center">Килограмм</td>
+                <td class="right">16</td>
+                <td class="right">16</td>
+                <td class="right">399.00</td>
+                <td class="right"></td>
+                <td class="right">6 384.00</td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td colspan="4" class="right">Итого</td>
+                <td class="right">16</td>
+                <td class="right">16</td>
+                <td class="center">X</td>
+                <td class="right"></td>
+                <td class="right">42 515.00</td>
+            </tr>
+        </table>
+        <div class="summ">
+            <div>Всего отпущено количество запасов (прописью)</div>
+            <div style="width: 170px; border-bottom: 1px solid;text-align: center; font-weight: bold;font-style: italic;">двадцать</div>
+            <div>на сумму (прописью) в KZT</div>
+            <div style="width: 450px; border-bottom: 1px solid; text-align: center; font-weight: bold;font-style: italic;">Сорок две тысячи пятьсот пятнадцать тенге 00 тиын</div>
+        </div>
+        <div class="sign">
+            <div>
+                <p style="width: 160px;">Отпуск разрешил</p><p>______________/_____________/_____________</p><br>
+                <p style=" font-size: xx-small; font-style: italic;">должность           подпись       расшифровка подписи</p><br>
+            </div>
+            <div>
+                <p>По доверенности № ______ от  "______" _________________ 20_____года</p>
+            </div>
+        </div>
+        <div class="sign">
+            <div>
+                <p style="width: 160px;">Главный бухгалтер</p><p>______________/___________________________</p><br>
+            </div>
+            <div>
+                <p>выданной</p><p>_____________________________________________________</p>
+            </div>
+        </div>
+        <div class="sign">
+            <div>
+                <p>М.П.</p><br>
+            </div>
+            <div>
+                <p>_____________________________________________________________</p>
+            </div>
+        </div>
+        <div class="sign">
+            <div>
+                <p style="width: 160px;">Отпустил</p><p>______________/___________________________</p>
+            </div>
+            <div>
+                <p>Запасы получил</p><p>________________/____________________________</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
