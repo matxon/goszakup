@@ -295,6 +295,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
                             $(win.document.body)
                                 .css('font-size', '10pt')
                                 .css('padding', '0')
+                                .css('height', 'auto')
                                 .find('table')
                                 .css('font-size', '10pt')
                                 .css('font-family', 'inherit');
