@@ -288,7 +288,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
                         exportOptions: {
                             columns: ':visible'
                         },
-                        autoPrint: false,
+                        autoPrint: true,
                         // messageTop: table[0][1] + '<br>' + table[0][10],
                         // 'This print was produced using the Print button for DataTables',
                         customize: function (win) {
