@@ -160,7 +160,8 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
     sdocument = localStorage.getItem('document') ? JSON.parse(localStorage.getItem('document')) : {};
 
     // договордың нөмірі
-    num = $('h4:first').text().trim().substring(10).trim();
+    num = $('h4:first').text().substring($('h4:first').text().indexOf('№')+1).trim();
+    // num = $('h4:first').text().trim().substring(10).trim();
     // егер localStorage-де осы келісім шарттың нөмірі тізімде болса 
     
     
