@@ -460,7 +460,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
                 sotny = desatky = edinicy = "";
                 if (n(i + 2, 2) > 10 && n(i + 2, 2) < 20) {
                     edinicy = " " + M[n(i + 1, 1)][1] + " " + M[0][i / 3 + 3];
-                    i == 0 ? edinicy += D[0] : 0;
+                    i == 0 ? edinicy += ''/* D[0] */: 0;
                 }
                 else {
                     edinicy = M[n(i + 1, 1)][0];
