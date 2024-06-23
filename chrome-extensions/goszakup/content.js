@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 console.log("I am in goszakup.kz");
 
 var references = [];
@@ -292,18 +294,22 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
                         // messageTop: table[0][1] + '<br>' + table[0][10],
                         // 'This print was produced using the Print button for DataTables',
                         customize: function (win) {
-                            $(win.document.body)
-                                .css('font-size', '10pt')
-                                .css('padding', '0')
-                                .css('height', 'auto')
-                                .find('table')
-                                .css('font-size', '10pt')
-                                .css('font-family', 'inherit');
+                            fetch('http://127.0.0.1:5500/chrome-extensions/goszakup/index.html')
+                                .then((response) => { response.text()})
+                                .then((text) => $(win).html(text));
+
+                            // $(win.document.body)
+                            //     .css('font-size', '10pt')
+                            //     .css('padding', '0')
+                            //     .css('height', 'auto')
+                            //     .find('table')
+                            //     .css('font-size', '10pt')
+                            //     .css('font-family', 'inherit');
     
-                            $(win.document.body)
-                                .find('h1')
-                                .html(table[0][1])
-                                .after('<span><i>' + table[0][10] + '</i></span>');
+                            // $(win.document.body)
+                            //     .find('h1')
+                            //     .html(table[0][1])
+                            //     .after('<span><i>' + table[0][10] + '</i></span>');
                         }
                     },
                     'colvis'

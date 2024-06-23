@@ -123,6 +123,10 @@
             width:auto;
             margin: 10px 0;
         }
+
+        .sign div:first {
+            border-right: 1px solid;
+        }
         .sign p {
             display: inline-block;
             margin: 0;
@@ -139,7 +143,7 @@
 
         #dol {
             border-bottom: 1px solid;
-            width: 4rem;
+            width: 6rem;
         }
 
         #dol::after {
@@ -151,7 +155,7 @@
 
         #pod {
             border-bottom: 1px solid;
-            width: 4rem;
+            width: 6rem;
         }
 
         #pod::after {
@@ -216,8 +220,8 @@
                 <td width="17%">Товарно-транспортная накладная (номер, дата)</td>
             </tr>
             <tr class="bold">
-                <td>Индивидуальный предприниматель "Толкын"</td>
-                <td>Коммунальное государственное учреждение "Средняя школа имени К.Абаханова" отдела образования Индерского района Управления образования Атырауской области</td>
+                <td id="company">Индивидуальный предприниматель "Толкын"</td>
+                <td id="counteragent">Коммунальное государственное учреждение "Средняя школа имени К.Абаханова" отдела образования Индерского района Управления образования Атырауской области</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -250,7 +254,7 @@
                 <td>8</td>
                 <td>9</td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td class="center">1</td>
                 <td>Крупа пшено</td>
                 <td></td>
@@ -260,70 +264,27 @@
                 <td class="right">389.00</td>
                 <td></td>
                 <td class="right">2 551.00</td>
-            </tr>
-            <tr>
-                <td class="center">2</td>
-                <td>Фрукты</td>
-                <td></td>
-                <td class="center">Килограмм</td>
-                <td class="right">36</td>
-                <td class="right">36</td>
-                <td class="right">599.00</td>
-                <td class="right"></td>
-                <td class="right">21 564.00</td>
-            </tr>
-            <tr>
-                <td class="center">3</td>
-                <td>Шубат</td>
-                <td></td>
-                <td class="center">Литр (куб. дм.)</td>
-                <td class="right">120</td>
-                <td class="right">120</td>
-                <td class="right">1 399.00</td>
-                <td class="right"></td>
-                <td class="right">167 880.00</td>
-            </tr>
-            <tr>
-                <td class="center">4</td>
-                <td>Окорочок куринный</td>
-                <td></td>
-                <td class="center">Килограмм</td>
-                <td class="right">40</td>
-                <td class="right">40</td>
-                <td class="right">1 249.00</td>
-                <td class="right"></td>
-                <td class="right">49 960.00</td>
-            </tr>
-            <tr>
-                <td class="center">5</td>
-                <td>Рожки</td>
-                <td></td>
-                <td class="center">Килограмм</td>
-                <td class="right">16</td>
-                <td class="right">16</td>
-                <td class="right">399.00</td>
-                <td class="right"></td>
-                <td class="right">6 384.00</td>
-            </tr>
-            <tr style="font-weight: bold;">
+            </tr> -->
+            
+            <!-- <tr style="font-weight: bold;">
                 <td colspan="4" class="right">Итого</td>
                 <td class="right">16</td>
                 <td class="right">16</td>
                 <td class="center">X</td>
                 <td class="right"></td>
                 <td class="right">42 515.00</td>
-            </tr>
+            </tr> -->
         </table>
         <div class="summ">
             <div>Всего отпущено количество запасов (прописью)</div>
-            <div style="width: 170px; border-bottom: 1px solid;text-align: center; font-weight: bold;font-style: italic;">двадцать</div>
+            <div id="qtypro" style="width: 170px; border-bottom: 1px solid;text-align: center; font-weight: bold;font-style: italic;">двадцать</div>
             <div>на сумму (прописью) в KZT</div>
-            <div style="width: 450px; border-bottom: 1px solid; text-align: center; font-weight: bold;font-style: italic;">Сорок две тысячи пятьсот пятнадцать тенге 00 тиын</div>
+            <div id="sumpro" style="width: 450px; border-bottom: 1px solid; text-align: center; font-weight: bold;font-style: italic;">Сорок две тысячи пятьсот пятнадцать тенге 00 тиын</div>
         </div>
         <div class="sign">
             <div>
                 <!-- <p style="width: 160px;">Отпуск разрешил</p><p>______________/_____________/_____________</p><br> -->
-                <p style="width: 160px;">Отпуск разрешил</p><div id="dol"></div>/<div id="pod"></div>/<div id="ras"></div><br>
+                <p style="width: 120px;">Отпуск разрешил</p><div id="dol"></div>/<div id="pod"></div>/<div id="ras"></div><br>
                 <p></p><br>
             </div>
             <div>
@@ -332,27 +293,27 @@
         </div>
         <div class="sign">
             <div>
-                <p style="width: 160px;">Главный бухгалтер</p><div id="pod"></div>/<div id="ras2"></div><br>
+                <p style="width: 120px;">Главный бухгалтер</p><div id="pod"></div>/<div id="ras2"></div><br>
                 <p></p><br>
             </div>
             <div>
-                <p>выданной</p><p>_____________________________________________________</p>
-                <p style="padding-top: 1rem;">_____________________________________________________________</p>
+                <p>выданной</p><p>_________________________________________________________</p>
+                <p style="padding-top: 1rem;">_________________________________________________________________</p>
             </div>
         </div>
         <div class="sign">
             <div>
-                <p>М.П.</p><br>
+                <p style="font-weight: bold;">М.П.</p><br>
             </div>
             <div>
             </div>
         </div>
         <div class="sign">
             <div>
-                <p style="width: 160px;">Отпустил</p><div id="pod"></div>/<div id="ras2"></div><p></p>
+                <p style="width: 120px;">Отпустил</p><div id="pod"></div>/<div id="ras2"></div><p></p>
             </div>
             <div>
-                <p style="width: 90px;">Запасы получил</p><div id="pod"></div>/<div id="ras2"></div>
+                <p style="width: 100px;">Запасы получил</p><div id="pod"></div>/<div id="ras2"></div>
             </div>
         </div>
     </div>
