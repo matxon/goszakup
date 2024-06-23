@@ -1,8 +1,8 @@
-const { response } = require("express");
+// const { response } = require("express");
 
 console.log("I am in goszakup.kz");
 
-var references = [];
+// var references = [];
 
 
 if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/supplier")) {
@@ -293,10 +293,11 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
                         autoPrint: true,
                         // messageTop: table[0][1] + '<br>' + table[0][10],
                         // 'This print was produced using the Print button for DataTables',
-                        customize: function (win) {
+                        customize: function (win, button, param) {
                             fetch('http://127.0.0.1:5500/chrome-extensions/goszakup/index.html')
-                                .then((response) => { response.text()})
-                                .then((text) => $(win).html(text));
+                                .then((response) =>  response.text())
+                                .then((text) => win.document.write(text));
+                                // console.log(win, button, param);
 
                             // $(win.document.body)
                             //     .css('font-size', '10pt')
