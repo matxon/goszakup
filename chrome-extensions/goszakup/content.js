@@ -2,6 +2,21 @@
 
 console.log("I am in goszakup.kz");
 
+function formatDate(date) {
+
+    date = new Date(Date.parse(date));
+    var dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+  
+    var mm = date.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+  
+    var yy = date.getFullYear();
+    //if (yy < 10) yy = '0' + yy;
+  
+    return dd + '.' + mm + '.' + yy;
+  }
+
 // var references = [];
 
 
@@ -137,11 +152,12 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
 // Страница просмотра договора
 if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontract/supcontract/contract/")) {
 
-    $('<div class="row" id="gospanel"><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_contract" checked /><span> Скрыть содержание договора </span></div><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_start"/><span> Тауарларды сатып алуым керек </span></div><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_finish"/><span> Договордағы тауарларды апарып бердім </span></div><div class="col-md-2"><button id="copy_contract" class="btn btn-primary margin-top-15" type="button">Скопировать данные Заказчика</button></div></div>').prependTo($('.tab-content>.tab-pane:first'));
+    $('<div class="row" id="gospanel"><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_contract" checked /><span> Скрыть содержание договора </span></div><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_start"/><span> Тауарларды сатып алуым керек </span></div><div class="col-md-1"><input class="form-control form-control-sm" id="docdate" type="date"></div><div class="col-md-1"><input class="form-control form-control-sm" id="docnumber" type="text"></div><div class="col-md-2"><input class=" margin-top-15" type="checkbox" id="checkbox_finish"/><span> Договордағы тауарларды апарып бердім </span></div><div class="col-md-2"><button id="copy_contract" class="btn btn-primary margin-top-15" type="button">Скопировать данные Заказчика</button></div></div>').prependTo($('.tab-content>.tab-pane:first'));
     
     // localStorage-дегі запись
     list = localStorage.getItem('finish') ? JSON.parse(localStorage.getItem('finish')) : [];
     slist = localStorage.getItem('start') ? JSON.parse(localStorage.getItem('start')) : [];
+    sdocument = localStorage.getItem('document') ? JSON.parse(localStorage.getItem('document')) : {};
 
     // договордың нөмірі
     num = $('h4:first').text().trim().substring(10).trim();
@@ -153,8 +169,15 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
         // console.log(num, list);
     };
 
+    if (num in sdocument) {
+        $('#docdate').val(sdocument[num].docdate);
+        $('#docnumber').val(sdocument[num].docnumber);
+    }
+
     if (slist.includes(num)) {
         $('#checkbox_start').prop('checked', true);
+        
+        
         // console.log(num, list);
     };
 
@@ -186,6 +209,12 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
             slist = localStorage.getItem('start') ? JSON.parse(localStorage.getItem('start')) : [];
             slist.push(num);
             localStorage.setItem('start', JSON.stringify(slist));
+            sdocument[num] = {
+                docdate: $('#docdate').val(),
+                docnumber: $('#docnumber').val()
+            }
+            
+            localStorage.setItem('document', JSON.stringify(sdocument));
         } else {
             nlist = slist.filter((elem) => elem!=num);
             localStorage.setItem('start', JSON.stringify(nlist));
@@ -290,27 +319,56 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
                         exportOptions: {
                             columns: ':visible'
                         },
-                        autoPrint: true,
+                        autoPrint: false,
                         // messageTop: table[0][1] + '<br>' + table[0][10],
                         // 'This print was produced using the Print button for DataTables',
-                        customize: function (win, button, param) {
-                            fetch('http://127.0.0.1:5500/chrome-extensions/goszakup/index.html')
-                                .then((response) =>  response.text())
-                                .then((text) => win.document.write(text));
-                                // console.log(win, button, param);
+                        customize: function (win) {
+                            
+                            s = '';
+                            qtypro = 0;
+                            summpro = 0;
 
-                            // $(win.document.body)
-                            //     .css('font-size', '10pt')
-                            //     .css('padding', '0')
-                            //     .css('height', 'auto')
-                            //     .find('table')
-                            //     .css('font-size', '10pt')
-                            //     .css('font-family', 'inherit');
-    
-                            // $(win.document.body)
-                            //     .find('h1')
-                            //     .html(table[0][1])
-                            //     .after('<span><i>' + table[0][10] + '</i></span>');
+
+                            for (i = 0; i < table.length; i++) {
+                                s += '<tr>';
+                                for (j = 0; j < table[i].length; j++) {
+                                    // 2. 5. 6. 7. 12.
+                                    switch (j) {
+                                        case 0:
+                                            s += '<td class="center">' + (i+1) + '</td>';
+                                            break;
+                                        case 2:
+                                            s += '<td>' + table[i][j] + '</td><td></td>';
+                                            break;
+                                        case 5:
+                                            s += '<td class="center">' + table[i][j] + '</td>';
+                                            break;
+                                        case 6:
+                                            s += '<td class="right">' + table[i][j] + '</td>';
+                                            s += '<td class="right">' + table[i][j] + '</td>';
+                                            qtypro += +table[i][j].replace(/[\ ]/g,'');
+                                            break;
+                                        case 7:
+                                            s += '<td class="right">' + table[i][j] + '</td><td></td>';
+                                            break;
+                                        case 12:
+                                            s += '<td class="right">' + table[i][j] + '</td>';
+                                            summpro += +table[i][j].replace(/[\ ]/g,'');
+                                        default:
+                                            break;
+                                    }
+                                    
+                                }
+                                s += '</tr>';
+                            }
+
+                            text = `<html lang="ru"><head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Накладная на отпуск</title> <style> @media print { @page { size: A4 landscape; margin: 0; } html,body { /* width: 297cm; */ box-sizing: border-box; font-size: 12px; font-family: Arial, Helvetica, sans-serif; } } html, body { font-family: Arial, Helvetica, sans-serif; font-size: 12px; } .pri { font-size: 9px; font-style: italic; width: 160px; position:sticky ; right: 0; float: right; text-align: right; /* border: 1px solid red; */ } .org, .orgname, .bin { /* border: 1px solid red; */ display: inline-block; /* position: relative; */ /* margin-top: 150px ; */ } .orgname { border-bottom: 1px solid; width: 400px; text-align: center; font-weight: bold; } .bin { float: right; } .bin div { display: inline-block; } .bin div:last-child { width: 100px; border: 1px solid; text-align: center; margin-left: 10px; } .dparent { margin-top: 15px; } .docum { width: 204px; border: 1px solid; float: right; } .docum div { text-align: center; width: 100px; display: inline-block; padding: 2px; border: 1px solid; box-sizing: border-box; } .right { text-align: end; } .center { text-align: center; } h3 { padding: 25px; } t1 { margin-top: 70px; } table { border-collapse: collapse; font-size: 12px; } td { padding: 0 5px; border: 1px solid; } .bold { font-weight: bold; } .sign div { display: inline-block; width: 47%; padding: 0 10px; /* border: 1px solid; */ } .sign { width:auto; margin: 10px 0; } .sign div:first { border-right: 1px solid; } .sign p { display: inline-block; margin: 0; } .summ { padding: 15px 0; font-size: 11px; } .summ div { display: inline-block; } #dol { border-bottom: 1px solid; width: 6rem; } #dol::after { content: 'должность'; font-size: 9px; font-style: italic; position: fixed; } #pod { border-bottom: 1px solid; width: 6rem; } #pod::after { content: 'подпись'; font-size: 9px; font-style: italic; position: fixed; } #ras { border-bottom: 1px solid; width: 12rem; } #ras::after { content: 'расшифровка подписи'; font-size: 9px; font-style: italic; position: fixed; } #ras2 { border-bottom: 1px solid; width: 18rem; } #ras2::after { content: 'расшифровка подписи'; font-size: 9px; font-style: italic; position: fixed; } </style></head><body> <div style="padding: 10px 60px; width: 1120px;"> <div class="pri"> Приложение 26 к приказу Министра финансов Республики Казахстан от 20 декабря 2012 года № 562<br>Форма 3-2 </div> <div style="padding-top: 55px;"> <div class="org">Организация (индивидуальный предприниматель)</div> <div class="orgname">Индивидуальный предприниматель "Толкын"</div> <div class="bin bold"><div>ИИН/БИН</div><div>780810300351</div></div> </div> <div class="dparent"> <div class="docum"> <div>Номер документа</div> <div>Дата составления</div> <div class="bold">${jQuery("#docnumber").val()}</div> <div class="bold">${formatDate(jQuery("#docdate").val())}</div> </div> </div> <h3 class="center">НАКЛАДНАЯ НА ОТПУСК ЗАПАСОВ НА СТОРОНУ</h3> <table class="t1 center"> <tbody><tr> <td width="20%">Организация (индивидуальный предприниматель) - отправитель</td> <td width="30%">Организация (индивидуальный предприниматель) - получатель</td> <td width="15%">Ответственный за поставку (Ф.И.О)</td> <td width="15%">Транспортная накладная</td> <td width="17%">Товарно-транспортная накладная (номер, дата)</td> </tr> <tr class="bold"> <td id="company">Индивидуальный предприниматель "Толкын"</td> <td id="counteragent">${table[0][1]}</td> <td></td> <td></td> <td></td> </tr> </tbody></table> <br> <table width="100%"> <tbody><tr class="center"> <td rowspan="2" width="60px">Номер по порядку</td> <td rowspan="2">Наименование, характеристика</td> <td rowspan="2" width="100px">Номенклатурный номер</td> <td rowspan="2" width="100px">Единица измерения</td> <td colspan="2">Количество</td> <td rowspan="2" width="100px">Цена за единицу, в KZT</td> <td rowspan="2" width="100px">Сумма с НДС</td> <td rowspan="2" width="100px">Сумма без НДС</td> </tr> <tr class="center"> <td width="100px">подлежит отпуску</td> <td width="100px">отпущено</td> </tr> <tr class="center"> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td> </tr> ${s} <tr style="font-weight: bold;"> <td colspan="4" class="right">Итого</td> <td class="right">${qtypro}</td> <td class="right">${qtypro}</td> <td class="center">X</td> <td class="right"></td> <td class="right">${summpro}</td> </tr> </tbody></table> <div class="summ"> <div>Всего отпущено количество запасов (прописью)</div> <div id="qtypro" style="width: 200px; border-bottom: 1px solid;text-align: center; font-weight: bold;font-style: italic;">${num2str(qtypro).prop}</div> <div>на сумму (прописью) в KZT</div> <div id="sumpro" style="width: 500px; border-bottom: 1px solid; text-align: center; font-weight: bold;font-style: italic;">${num2str(summpro).money}</div> </div> <div class="sign"> <div> \x3C!-- <p style="width: 160px;">Отпуск разрешил</p><p>______________/_____________/_____________</p><br> --> <p style="width: 120px;">Отпуск разрешил</p><div id="dol"></div>/<div id="pod"></div>/<div id="ras"></div><br> <p></p><br> </div> <div> <p>По доверенности № ______ от "______" _________________ 20_____года</p> </div> </div> <div class="sign"> <div> <p style="width: 120px;">Главный бухгалтер</p><div id="pod"></div>/<div id="ras2"></div><br> <p></p><br> </div> <div> <p>выданной</p><p>_________________________________________________________</p> <p style="padding-top: 1rem;">_________________________________________________________________</p> </div> </div> <div class="sign"> <div> <p style="font-weight: bold;">М.П.</p><br> </div> <div> </div> </div> <div class="sign"> <div> <p style="width: 120px;">Отпустил</p><div id="pod"></div>/<div id="ras2"></div><p></p> </div> <div> <p style="width: 100px;">Запасы получил</p><div id="pod"></div>/<div id="ras2"></div> </div> </div> </div></body></html>`
+
+                            win.document.write(text);
+
+                            console.log(table);
+
+           
                         }
                     },
                     'colvis'
@@ -328,6 +386,102 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
         paging: false,
         searching: false,
     });
+
+    var money;
+        var price;
+        var rub, kop;
+        var litera = sotny = desatky = edinicy = minus = "";
+        var k = 0, i, j;
+        
+        N = ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять",
+            "", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать",
+            "", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто",
+            "", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот",
+            "тысяч", "тысяча", "тысячи", "тысячи", "тысячи", "тысяч", "тысяч", "тысяч", "тысяч", "тысяч",
+            "миллионов", "миллион", "миллиона", "миллиона", "миллиона", "миллионов", "миллионов", "миллионов", "миллионов", "миллионов",
+            "миллиардов", "миллиард", "миллиарда", "миллиарда", "миллиарда", "миллиардов", "миллиардов", "миллиардов", "миллиардов", "миллиардов"];
+        
+        var M = new Array(10);
+        for (j = 0; j < 10; ++j)
+            M[j] = new Array(N.length);
+        
+        for (i = 0; i < N.length; i++)
+            for (j = 0; j < 10; j++)
+                M[j][i] = N[k++];
+        
+        var R = new Array("тенге", "тенге", "тенге", "тенге", "тенге", "тенге", "тенге", "тенге", "тенге", "тенге");
+        // var R = 'тенге';
+        var K = new Array("тиын", "тиын", "тиын", "тиын", "тиын", "тиын", "тиын", "тиын", "тиын", "тиын");
+        // var K = 'тиын';
+        
+        function num2str(money /*, target*/) {
+            rub = "", kop = "";
+            money += '';
+            money = money.replace(",", ".");
+        
+            if (isNaN(money)) {
+                // document.getElementById(target).innerHTML = "Не числовое значение";
+                return "Не числовое значение";
+            }
+            if (money.substr(0, 1) == "-") {
+                money = money.substr(1);
+                minus = "минус ";
+            }
+            else minus = "";
+            money = Math.round(money * 100) / 100 + "";
+        
+            if (money.indexOf(".") != -1) {
+                rub = money.substr(0, money.indexOf("."));
+                kop = money.substr(money.indexOf(".") + 1);
+                if (kop.length == 1) kop += "0";
+            }
+            else rub = money;
+        
+            if (rub.length > 12) {
+                // document.getElementById(target).innerHTML = "Слишком большое число";
+                return "Слишком большое число";
+            }
+            ru = propis(price = rub, R);
+            kop = kop == '' ? '00': kop; /* propis(price = kop, K);*/
+            
+            return { money: ru + 'тенге ' + kop + ' тиын', prop: ru };
+
+            ko != "" ? res = ru + " " + ko : res = ru;
+            ru == "Ноль " + R[0] && ko != "" ? res = ko : 0;
+            kop == 0 ? res += " ноль " + K[0] : 0;
+            // document.getElementById(target).innerHTML = (minus + res).substr(0, 1).toUpperCase() + (minus + res).substr(1);
+            return (minus + res).substr(0, 1).toUpperCase() + (minus + res).substr(1);
+        }
+        
+        function propis(price /*, D*/) {
+            litera = "";
+            for (i = 0; i < price.length; i += 3) {
+                sotny = desatky = edinicy = "";
+                if (n(i + 2, 2) > 10 && n(i + 2, 2) < 20) {
+                    edinicy = " " + M[n(i + 1, 1)][1] + " " + M[0][i / 3 + 3];
+                    i == 0 ? edinicy += D[0] : 0;
+                }
+                else {
+                    edinicy = M[n(i + 1, 1)][0];
+                    (edinicy == "один" && (i == 3 /*|| D == K*/)) ? edinicy = "одна" : 0;
+                    (edinicy == "два" && (i == 3 /*|| D == K*/)) ? edinicy = "две" : 0;
+                    i == 0 && edinicy != "" ? 0 : edinicy += " " + M[n(i + 1, 1)][i / 3 + 3];
+                    edinicy == " " ? edinicy = "" : (edinicy == " " + M[n(i + 1, 1)][i / 3 + 3]) ? 0 : edinicy = " " + edinicy;
+                    i == 0 ? edinicy += " " /* + D[n(i + 1, 1)] */: 0;
+                    (desatky = M[n(i + 2, 1)][2]) != "" ? desatky = " " + desatky : 0;
+                }
+                (sotny = M[n(i + 3, 1)][3]) != "" ? sotny = " " + sotny : 0;
+                if (price.substr(price.length - i - 3, 3) == "000" && edinicy == " " + M[0][i / 3 + 3]) edinicy = "";
+                litera = sotny + desatky + edinicy + litera;
+            }
+            if (litera == " " /* + R[0]*/) return "ноль" + litera;
+            else return litera.substr(1);
+
+            function n(start, len) {
+                if (start > price.length) return 0;
+                else return Number(price.substr(price.length - start, len));
+            }
+        }
 
 }
 
