@@ -36,7 +36,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
         columns: [
             { visible: false }, //null,                                 // 0. checkbox
             { visible: false }, //null,                                 // 1. Id
-            //null,                                             // 2. Номер договора
+            //null,                                                     // 2. Номер договора
             { render: function(data, type, row) {
                 
                 if (list.includes($(data).text().trim())) {
@@ -63,7 +63,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
             //         return data;
             //     } 
             // }
-            null,                                               // 6. Статус договора
+            null,                                                       // 6. Статус договора
 
             null, //{ visible: false },                                 // 7. Способ закупки
             { visible: false }, //null,                                 // 8. Финансовый год
@@ -122,7 +122,16 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
         // $(this).toggleClass('btn-primary');
     });
 
-        
+    $.ajax({ 
+        url: 'http://localhost:3000/test',
+        type: 'post',
+        success: function(res) {
+            console.log(res);
+        },
+        error: function(err) {
+            alert(err.responseText);
+        }
+     });
 
 }
         

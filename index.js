@@ -1,12 +1,41 @@
 const sqlite = require('better-sqlite3');
 
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
-app.use(express.static('public'))
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.options('/api', cors(corsOptions));
+// app.use(cors(corsOptions));
+// app.use(function (req, res, next) {
+
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', 'https://v3bl.goszakup.gov.kz');
+
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+
+//     // Pass to next layer of middleware
+//     next();
+// });
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+var corsOptions = {
+    origin: 'https://v3bl.goszakup.gov.kz',
+    methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+    allowedHeaders: 'X-Requested-With,content-type',
+    credentials: 'true',
+    optionsSuccessStatus: 200   // some legacy browsers (IE11, variios SmartTVs) choke on 204
+};
 
 let sql;
 
@@ -19,8 +48,24 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
+app.post('/api', cors(), (req, res) => {
+    console.log(req)
+    sql = db.prepare("SELECT * FROM counteragents");
+    rows = sql.all();
+
+    res.send(rows);
+});
+
+app.post('/test', cors(), (req, res) => {
+    console.log(req)
+    sql = db.prepare("SELECT * FROM counteragents");
+    rows = sql.all();
+
+    res.send(rows);
+});
+
 app.post('/products', (req, res) => {
-    // console.log(req.body);
+    console.log(req);
     sql = db.prepare("SELECT * FROM products WHERE concat(id,product_name) like ? ORDER BY product_name");
     rows = sql.all('%' + req.body.str + '%');
 
