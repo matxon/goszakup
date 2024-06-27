@@ -48,6 +48,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
+// for content script
 app.post('/api', cors(), (req, res) => {
     console.log(req)
     sql = db.prepare("SELECT * FROM counteragents");
@@ -63,7 +64,16 @@ app.post('/test', cors(), (req, res) => {
 
     res.send(rows);
 });
+// end for content script
 
+app.post('/purchases', (req, res) => {
+    sql = db.prepare("SELECT Purchases.id, date, Name, summ, cash + card as paid, summ - cash - card as balans from Purchases, Counteragents WHERE id_counteragent = Counteragents.id;");
+    rows = sql.all();
+    // console.log(rows);
+    res.send({data: rows});
+ });
+
+ 
 app.post('/products', (req, res) => {
     console.log(req);
     sql = db.prepare("SELECT * FROM products WHERE concat(id,product_name) like ? ORDER BY product_name");
