@@ -50,17 +50,18 @@ app.get('/', (req, res) => {
 
 // for content script
 app.post('/api', cors(), (req, res) => {
-    console.log(req)
+    // console.log(req)
     sql = db.prepare("SELECT * FROM counteragents");
     rows = sql.all();
 
     res.send(rows);
 });
 
-app.post('/test', cors(), (req, res) => {
-    console.log(req)
-    sql = db.prepare("SELECT * FROM counteragents");
-    rows = sql.all();
+app.post('/contract', cors(), (req, res) => {
+    id = req.body.contract;
+    console.log(id);
+    sql = db.prepare("SELECT * FROM contracts where id_contract = ?");
+    rows = sql.all(id);
 
     res.send(rows);
 });

@@ -70,9 +70,11 @@
         }
 
         .docum {
-            width: 204px;
+            width: 200px;
             border: 1px solid;
             float: right;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .docum div {
@@ -188,11 +190,15 @@
             font-style: italic;
             position: fixed;
         }
+        #address {
+            position: absolute;
+            top: 0;
+        }
     </style>
 </head>
 <body>
     <div style="padding: 10px 60px; width: 1120px;">
-
+        <div id="address"></div>
         <div class="pri">
             Приложение 26 к приказу Министра финансов Республики Казахстан от 20 декабря 2012 года № 562<br>Форма 3-2
         </div>

@@ -92,3 +92,66 @@ finish = [
 31623337-ОЛ-ЗЦП1|Коммунальное государственное казенное предприятие "Макатский технологический колледж нефти и газа" Управления образования Атырауской области"|Кисть|малярная|Кисть малярная плоская 30мм*30мм. Необходимо заранее согласовать с заказчиком. 87788024871.|Штука|24|                        222.00                    | в течение 20 календарных дней с даты подписания договора|в течение 20 календарных дней с даты подписания договора|Атырауская область, Макатский район, п.Доссор КАЗАХСТАН, Атырауская область, Макатский район, п.Доссор,    К. Жандауов №5|0|5 328.00||
 31623337-ОЛ-ЗЦП1|Коммунальное государственное казенное предприятие "Макатский технологический колледж нефти и газа" Управления образования Атырауской области"|Угольник|алюминиевый, разметочный|Уголок наружный 5*5см.  Характеристики: Длина: 2500 мм; Тольщина: 0,45мм; Цвет: Белый RAL 9003; Покрытие: Полиэстер односторонний; Вес, кг. 2.15; Обязательно предварительно согласовываются с заказчиком. 87788024871.|Метр|37.5|                        2 344.00                    | в течение 20 календарных дней с даты подписания договора|в течение 20 календарных дней с даты подписания договора|Атырауская область, Макатский район, п.Доссор КАЗАХСТАН, Атырауская область, Макатский район, п.Доссор,  К. Жубанов №5|0|87 900.00||
 
+
+`function change_data(alias, lang)
+{
+  /*$.ajax({
+    type: 'POST',
+    url: ajax_url('ajax_contract_edit_item'), //"<?php echo site_url(lkey()."/egzcontract/mycontracts/ajax_contract_edit_item");?>",
+    data: {alias: alias, lang: lang},
+    success: function (data, status) {
+      $('#editformresult').html(data);
+      $('#editform').show();
+      if (alias == 'end_date') {
+        $('#pr_item_data_ru').datepicker();
+      }
+    },
+    error: function () {
+      alert('Ошибка сервера');
+    }
+    
+  });*/
+  
+  var url = ajax_url('ajax_contract_edit_item');
+  var data = {alias: alias, lang: lang};
+  var mes_id = 'editformresult';
+  var fun_ok = function (data) {
+    //$('#editformresult').html(data);
+    $('#editform').show();
+    if (alias == 'end_date') {
+      $('#pr_item_data_ru').datepicker();
+    }
+  }
+  doAjax(url, mes_id, data,fun_ok);
+}`
+
+function doAjax(url, mes_id, data, fun_ok) {
+  
+  var mes_obj = $('#' + mes_id);
+  
+  if (data == undefined) data = {};
+  
+  $.ajax({
+    type: "POST", async: false, cache: false, url: url, data: data,
+    success: function (data, textStatus, jqXHR) {
+      
+      var msg = data;
+      
+      if (mes_obj.size() != 0) {
+        var h = msg;
+        // h = h.replace(/\\n/g, '<br>');
+        mes_obj.html(h);
+      } else {
+        Mes(msg);
+      }
+      
+      if (fun_ok != undefined) {
+        fun_ok(data);
+      }
+      
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      err_handler(mes_obj, jqXHR, textStatus, errorThrown)
+    }
+  });
+}
