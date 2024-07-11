@@ -328,12 +328,15 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
     var table = [];
     //var table = '';
     trs = $('#econtract_pril_data>div:nth-child(2)>table>tbody>tr'); 
+    // console.log(trs);
     var col; // бағандардың саны
 
     for(i=0; i<trs.length; i++) {
+
         if (i==0) {
             tds=$(trs[i]).find('th');
             col = $(tds).length;
+            continue;
         } else {
             tds = $(trs[i]).find('td');
         }
@@ -341,31 +344,32 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
         //arr = '';
         index = 0;
         for (j=0; j<tds.length; j++) {
-             
+            
             if (tds.length<col) break;
             if (tds.length==col) {
-                // arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
-                //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
-                // index++;
-            }
-            if (tds.length>col) {
-                if (j==10 || j==12) continue;
-                
-                arr[index] = $(tds[j]).text().trim().replace(/[\r\n\t\b]/g,'');
+                arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
                 //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
                 index++;
             }
+            // if (tds.length>col) {
+            //     if (j==10 || j==12) continue;
+                
+            //     arr[index] = $(tds[j]).text().trim().replace(/[\r\n\t\b]/g,'');
+            //     //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
+            //     index++;
+            // }
             
         }
         if (index == col)  table.push(arr);
         //if (index == col)  table += arr + '\n';
     }
 
-    //console.log(table);
+    // console.log(table);
 
     products = $('#econtract_pril_data>div');
     products.addClass('displaynone');
-
+    
+    products = $('#econtract_pril_data>div:nth-child(2)');
     products.after('<div><table id="products" class="display table"></table></div>');
 
     $('#products').DataTable({
