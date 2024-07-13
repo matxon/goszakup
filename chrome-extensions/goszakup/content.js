@@ -192,6 +192,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
         if (i==0) {
             tds=$(trs[i]).find('th');
             col = $(tds).length;
+            continue;
         } else {
             tds = $(trs[i]).find('td');
         }
@@ -201,9 +202,9 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
             
             if (tds.length<col) break;
             if (tds.length==col) {
-                // arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
+                arr[index] = $(tds[j]).text().replace(/[\r\n\t\b]/g,'');
                 //arr += $(tds[j]).text().replace(/[\r\n\t\b]/g,'') + '\t';
-                // index++;
+                index++;
             }
             if (tds.length>col) {
                 if (j==10 || j==12) continue;
