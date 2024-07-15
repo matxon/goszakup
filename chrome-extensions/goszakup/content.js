@@ -2,6 +2,10 @@
 
 console.log("I am in goszakup.kz");
 
+script = document.createElement('script');
+script.setAttribute('src', 'http://localhost:3000/js/test.js');
+document.body.append(script);
+
 function formatDate(date) {
 
     date = new Date(Date.parse(date));
@@ -35,8 +39,13 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
         },
         stateSave: true,
         paging: false,
+        layout: {
+            topStart: {
+                buttons: ['colvis']
+            }
+        },
         columns: [
-            { visible: false }, //null,                                 // 0. checkbox
+            { title: 'N', visible: false }, //null,                                 // 0. checkbox
             { visible: false }, //null,                                 // 1. Id
             //null,                                                     // 2. Номер договора
             { render: function(data, type, row) {
@@ -48,7 +57,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
                     success: function(res) {
                         //  осы жерде договордың қай статуста тұрғанын анықтаймын
                         // соған байланысты кесте жолының класын қоямын
-                        console.log(res);
+                        // console.log(res);
                     },
                     error: function(err) {
                         console.log(err.responseText);
@@ -66,7 +75,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
                 return data.replace('edit', 'units');
             }},
 
-            { visible: false }, //null,                                 // 3. Непрочитанные сообщения
+            { title: 'MSG', visible: false }, //null,                                 // 3. Непрочитанные сообщения
             null, //{ visible: false },                                 // 4. Номер закупки
             
             { visible: false }, //null,                                 // 5. Тип договора
@@ -105,38 +114,38 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
 
     
 
-    $('.page-filter-actions:first').append(
-        '<div class="row">\
-            <div class="col-md-12">\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="0">1</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="1">ИД</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="2">№ Договора</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="3">Сообщение</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="4">№ Закупки</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="5">Тип договора</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="6">Статус договора</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="7">Способ закупки</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="8">Финансовый год</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="9">Сумма без НДС</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="10">Сумма с НДС</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="11">Заказчик</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="12">Статус</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="13">Автор</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="14">Дата создания</a>\
-            <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="15">Действие</a>\
-        </div>\
-    </div>');
+    // $('.page-filter-actions:first').append(
+    //     '<div class="row">\
+    //         <div class="col-md-12">\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="0">1</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="1">ИД</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="2">№ Договора</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="3">Сообщение</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="4">№ Закупки</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="5">Тип договора</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="6">Статус договора</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="7">Способ закупки</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="8">Финансовый год</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="9">Сумма без НДС</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="10">Сумма с НДС</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="11">Заказчик</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="12">Статус</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="13">Автор</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="14">Дата создания</a>\
+    //         <a class="toggle-vis btn btn-sm btn-primary mybtn" data-column="15">Действие</a>\
+    //     </div>\
+    // </div>');
 
-    $('a.toggle-vis').on('click', function (e) {
-        e.preventDefault();
+    // $('a.toggle-vis').on('click', function (e) {
+    //     e.preventDefault();
     
-        // Get the column API object
-        var column = pagetable.column($(this).attr('data-column'));
+    //     // Get the column API object
+    //     var column = pagetable.column($(this).attr('data-column'));
     
-        // Toggle the visibility
-        column.visible(!column.visible());
-        // $(this).toggleClass('btn-primary');
-    });
+    //     // Toggle the visibility
+    //     column.visible(!column.visible());
+    //     // $(this).toggleClass('btn-primary');
+    // });
 
     
 }
@@ -575,44 +584,44 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
 // Страница просмотра объявления
 if ($(location).attr('href').includes('https://v3bl.goszakup.gov.kz/ru/announce/index/')) {
 
-    array = $('.table tr').text().split('\n');
+    // array = $('.table tr').text().split('\n');
 
-    index = array.findIndex( function( item, index, arr) {
-        return item.includes('Организатор') ? true: false;
-    });
+    // index = array.findIndex( function( item, index, arr) {
+    //     return item.includes('Организатор') ? true: false;
+    // });
 
-    var text = array[index+1].trim().substring(0, 12) + '\t' + array[index+1].trim().substring(13) + '\t';
+    // var text = array[index+1].trim().substring(0, 12) + '\t' + array[index+1].trim().substring(13) + '\t';
 
-    index = array.findIndex( function( item, index, arr) {
-        return item.includes('адрес организатора') ? true: false;
-    });
+    // index = array.findIndex( function( item, index, arr) {
+    //     return item.includes('адрес организатора') ? true: false;
+    // });
 
-    var text = text + array[index+1].trim() + '\t';
+    // var text = text + array[index+1].trim() + '\t';
 
-    index = array.findIndex( function( item, index, arr) {
-        return item.includes('Контактный') ? true: false;
-    });
+    // index = array.findIndex( function( item, index, arr) {
+    //     return item.includes('Контактный') ? true: false;
+    // });
 
-    var text = text + array[index+1].trim() + '\t';
+    // var text = text + array[index+1].trim() + '\t';
 
-    index = array.findIndex( function( item, index, arr) {
-        return item.includes('E-Mail') ? true: false;
-    });
+    // index = array.findIndex( function( item, index, arr) {
+    //     return item.includes('E-Mail') ? true: false;
+    // });
 
-    var text = text + array[index+1].trim();
+    // var text = text + array[index+1].trim();
 
     
-    $('.table').on('click', cp(text));
+    // $('.table').on('click', cp(text));
 
-    async function cp(text) {
+    // async function cp(text) {
 
-        try {
-            await navigator.clipboard.writeText(text);
-        } catch (err) {
-            console.log(err.message);
-        }
+    //     try {
+    //         await navigator.clipboard.writeText(text);
+    //     } catch (err) {
+    //         console.log(err.message);
+    //     }
 
-        // history.back();
-    };
+    //     // history.back();
+    // };
 
 }

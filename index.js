@@ -5,8 +5,8 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-app.options('/api', cors(corsOptions));
-// app.use(cors(corsOptions));
+// app.options('/api', cors(corsOptions));
+app.use(cors(corsOptions));
 // app.use(function (req, res, next) {
 
 //     // Website you wish to allow to connect

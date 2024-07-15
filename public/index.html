@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/datatables.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" name="" id="fileselect">
+    <div id="preview"></div>
+    <table class="display"></table>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="js/datatables.min.js"></script>
+<script>
+    fileSelect = document.querySelector('#fileselect');
+
+    fileSelect.addEventListener('change', function(event) {
+        fileReader = new FileReader();
+
+        console.log(fileReader);
+
+        fileReader.readAsText(event.target.files[0]);
+
+        fileReader.onload = function() {
+    
+            array = fileReader.result.split('СекцияДокумент="Выписка"\r\n');
+
+            let arr = [];
+            let obj = {};
+            
+            for (const str of array) {
+
+                str.split('\r\n').forEach(elm => {
+                    i = elm.indexOf('=');
+                    if (i > -1) obj[elm.substring(0,i)] = elm.substring(i+1);
+                });
+                    
+                arr.push(obj);
+
+                obj = {};
+                
+            };
+
+            arr.shift();
+
+            $('table').DataTable({
+                paging: false,
+                ordering: false,
+                data: arr,
+                columns: [
+                    // { data: "ВидДокумента"},
+                    { title: 'Номер', data: "НомерДокумента"},
+                    { title: 'Дата', data: "ДатаДокумента"},
+                    { title: 'Валютирование', data: "ДатаВалютирования"},
+                    // { data: "ДатаОперации"},
+                    { title: 'КНП', data: "КодНазначенияПлатежа"},
+                    { title: 'Назначение', data: "НазначениеПлатежа"},
+                    { title: 'БИН', data: "ПлательщикБИН_ИИН"},
+                    // { data: "ПлательщикБанкБИК"},
+                    // { data: "ПлательщикБанкНаименование"},
+                    // { data: "ПлательщикИИК"},
+                    // { data: "ПлательщикКБЕ"},
+                    { title: 'Плательщик', data: "ПлательщикНаименование"},
+                    { title: 'БИН', data: "ПолучательБИН_ИИН"},
+                    // { data: "ПолучательБанкБИК"},
+                    // { data: "ПолучательБанкНаименование"},
+                    // { data: "ПолучательИИК"},
+                    // { data: "ПолучательКБЕ"},
+                    { title: 'Получатель', data: "ПолучательНаименование"},
+                    { title: 'Валюта', data: "Валюта"},
+                    { title: 'Сумма', data: "Сумма"},
+                    // { data: "СуммаРасход"},
+                    // { data: "СуммаПриход"}
+                ]
+            });
+        }
+    });
+
+</script>
+</html>
