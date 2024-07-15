@@ -3,7 +3,10 @@
 console.log("I am in goszakup.kz");
 
 script = document.createElement('script');
-script.setAttribute('src', 'http://localhost:3000/js/test.js');
+script.setAttribute('src', 'https://tolkyn.kz/js/test.js');
+// script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js');
+// script.setAttribute('integrity', "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz");
+// script.setAttribute('crossorigin',"anonymous");
 document.body.append(script);
 
 function formatDate(date) {
@@ -51,7 +54,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/contract/
             { render: function(data, type, row) {
 
                 $.ajax({
-                    url: 'http://localhost:3000/contract',
+                    url: 'https://tolkyn.kz/contract',
                     type: 'post',
                     data: {contract: $(data).text().trim()},
                     success: function(res) {
@@ -232,7 +235,7 @@ if ($(location).attr('href').includes("https://v3bl.goszakup.gov.kz/ru/egzcontra
 
     // Осы келісім-шарттың тіркелген немесе тіркелмегендігін анықтаймыз
     $.ajax({
-        url: 'http://localhost:3000/contract',
+        url: 'https://tolkyn.kz/contract',
         type: 'post',
         data: {contract: num},
         success: function(res) {
